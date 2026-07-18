@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رسانه تولیدات محتوای دیجیتال مذهبی ثارالله</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: #f5f5f5;
+            color: #333;
+            transition: background 0.3s, color 0.3s;
+        }
+        body.dark {
+            background: #1e1e1e;
+            color: #e0e0e0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        /* هدر */
+        header {
+            background: #8b0000;
+            color: #fff;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .logo-area img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #fff;
+            padding: 3px;
+        }
+        .logo-area h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+        nav {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 30px;
+            transition: background 0.3s;
+        }
+        nav a:hover, nav a.active {
+            background: rgba(255,255,255,0.2);
+        }
+        .btn {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: #ffcc00;
+            color: #8b0000;
+        }
+        .btn-primary:hover {
+            background: #e6b800;
+            transform: scale(1.02);
+        }
+        .btn-danger {
+            background: #dc3545;
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background: #c82333;
+        }
+        .btn-success {
+            background: #28a745;
+            color: #fff;
+        }
+        .btn-success:hover {
+            background: #218838;
+        }
+        .btn-dark {
+            background: #343a40;
+            color: #fff;
+        }
+        .btn-dark:hover {
+            background: #23272b;
+        }
+        /* پنل مدیریت */
+        .admin-panel {
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            display: none;
+        }
+        body.dark .admin-panel {
+            background: #2d2d2d;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+        }
+        .admin-panel.show {
+            display: block;
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #8b0000;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        .admin-header h2 {
+            color: #8b0000;
+        }
+        body.dark .admin-header h2 {
+            color: #ff6b6b;
+        }
+        .admin-tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .admin-tabs button {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 30px;
+            background: #e9ecef;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        body.dark .admin-tabs button {
+            background: #3d3d3d;
+            color: #ddd;
+        }
+        .admin-tabs button.active {
+            background: #8b0000;
+            color: #fff;
+        }
+        .admin-content {
+            margin-top: 25px;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        /* فرم‌ها */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: 0.3s;
+            background: #fff;
+        }
+        body.dark .form-control {
+            background: #3a3a3a;
+            border-color: #555;
+            color: #ddd;
+        }
+        .form-control:focus {
+            border-color: #8b0000;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(139,0,0,0.2);
+        }
+        .row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        /* پست‌ها */
+        .post-item {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border-right: 5px solid #8b0000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        body.dark .post-item {
+            background: #2a2a2a;
+            border-right-color: #ff6b6b;
+        }
+        .post-item h3 {
+            margin-bottom: 10px;
+            color: #8b0000;
+        }
+        body.dark .post-item h3 {
+            color: #ff6b6b;
+        }
+        .post-item .meta {
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 10px;
+        }
+        body.dark .post-item .meta {
+            color: #aaa;
+        }
+        .post-item .media-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .post-item .media-preview img, .post-item .media-preview video {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+        .post-item .media-preview audio {
+            width: 100%;
+        }
+        .post-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        /* لیست پست‌ها */
+        #postsList {
+            margin-top: 20px;
+        }
+        /* صفحه اصلی */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #8b0000 0%, #5a0000 100%);
+            color: #fff;
+            border-radius: 30px;
+            margin: 30px 0;
+        }
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        .feature-card {
+            background: #fff;
+            padding: 25px 15px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+        body.dark .feature-card {
+            background: #2d2d2d;
+        }
+        .feature-card i {
+            font-size: 2.5rem;
+            color: #8b0000;
+            margin-bottom: 15px;
+        }
+        body.dark .feature-card i {
+            color: #ff6b6b;
+        }
+        .feature-card h4 {
+            margin-bottom: 8px;
+        }
+        /* لاگین */
+        .login-box {
+            max-width: 400px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+        body.dark .login-box {
+            background: #2d2d2d;
+        }
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #8b0000;
+        }
+        body.dark .login-box h2 {
+            color: #ff6b6b;
+        }
+        /* تم دارک */
+        .theme-toggle {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0 10px;
+        }
+        body.dark .theme-toggle {
+            color: #ffcc00;
+        }
+        /* responsive */
+        @media (max-width: 768px) {
+            .logo-area h1 {
+                font-size: 1.2rem;
+            }
+            nav a {
+                font-size: 0.9rem;
+                padding: 5px 10px;
+            }
+            .hero h2 {
+                font-size: 2rem;
+            }
+            .admin-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+        /* سایر */
+        .hidden {
+            display: none;
+        }
+        .mt-20 {
+            margin-top: 20px;
+        }
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .badge {
+            background: #8b0000;
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+        }
+        body.dark .badge {
+            background: #ff6b6b;
+        }
+        .file-input-wrapper {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .file-input-wrapper input[type="file"] {
+            flex: 1;
+        }
+        .preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .preview-container .file-preview {
+            background: #eee;
+            padding: 5px 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        body.dark .preview-container .file-preview {
+            background: #3d3d3d;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div class="logo-area">
+            <img id="siteLogo" src="https://via.placeholder.com/50/8b0000/ffffff?text=ثار" alt="لوگو">
+            <h1 id="siteTitle">ثارالله</h1>
+        </div>
+        <nav>
+            <a href="#" class="active" data-page="home"><i class="fas fa-home"></i> خانه</a>
+            <a href="#" data-page="posts"><i class="fas fa-newspaper"></i> پست‌ها</a>
+            <a href="#" data-page="admin" id="adminLink"><i class="fas fa-user-cog"></i> مدیریت</a>
+            <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+        </nav>
+    </div>
+</header>
+
+<div class="container">
+    <!-- صفحه اصلی -->
+    <div id="page-home" class="page-content">
+        <div class="hero">
+            <h2>رسانه تولیدات محتوای دیجیتال مذهبی ثارالله</h2>
+            <p>محتواهای اصیل و ارزشی در بستر دیجیتال</p>
+        </div>
+        <div class="feature-grid">
+            <div class="feature-card"><i class="fas fa-video"></i><h4>فیلم و کلیپ</h4><p>محتوای تصویری با کیفیت</p></div>
+            <div class="feature-card"><i class="fas fa-music"></i><h4>پادکست و موزیک</h4><p>محتوای صوتی ارزشمند</p></div>
+            <div class="feature-card"><i class="fas fa-file-alt"></i><h4>مقالات و نوشته‌ها</h4><p>مطالب عمیق و کاربردی</p></div>
+            <div class="feature-card"><i class="fas fa-image"></i><h4>گالری تصاویر</h4><p>تصاویر با موضوعات مذهبی</p></div>
+        </div>
+        <div id="homePostsPreview">
+            <h3>آخرین پست‌ها</h3>
+            <div id="homePostsList"></div>
+        </div>
+    </div>
+
+    <!-- صفحه پست‌ها -->
+    <div id="page-posts" class="page-content hidden">
+        <h2>همه پست‌ها</h2>
+        <div id="allPostsList"></div>
+    </div>
+
+    <!-- پنل مدیریت -->
+    <div id="page-admin" class="page-content hidden">
+        <div id="loginSection">
+            <div class="login-box">
+                <h2>ورود به پنل مدیریت</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label>نام کاربری</label>
+                        <input type="text" id="username" class="form-control" placeholder="نام کاربری">
+                    </div>
+                    <div class="form-group">
+                        <label>رمز عبور</label>
+                        <input type="password" id="password" class="form-control" placeholder="رمز عبور">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%">ورود</button>
+                </form>
+                <p id="loginError" style="color:red; margin-top:10px; display:none;">نام کاربری یا رمز اشتباه است</p>
+            </div>
+        </div>
+
+        <div id="adminPanel" class="admin-panel">
+            <div class="admin-header">
+                <h2><i class="fas fa-cogs"></i> پنل مدیریت</h2>
+                <div class="admin-tabs">
+                    <button class="active" data-tab="dashboard">داشبورد</button>
+                    <button data-tab="posts">مدیریت پست‌ها</button>
+                    <button data-tab="profile">ویرایش نمایه</button>
+                    <button data-tab="settings">تنظیمات</button>
+                </div>
+                <button id="logoutBtn" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> خروج</button>
+            </div>
+
+            <div class="admin-content">
+                <!-- داشبورد -->
+                <div id="tab-dashboard" class="tab-content active">
+                    <h3>خلاصه وضعیت</h3>
+                    <p>تعداد کل پست‌ها: <span id="totalPosts">0</span></p>
+                    <p>وضعیت تم: <span id="themeStatus">روشن</span></p>
+                    <button class="btn btn-dark" id="toggleDarkModeAdmin">تغییر تم دارک/روشن</button>
+                </div>
+
+                <!-- مدیریت پست‌ها -->
+                <div id="tab-posts" class="tab-content">
+                    <h3>افزودن پست جدید</h3>
+                    <form id="postForm">
+                        <div class="form-group">
+                            <label>عنوان پست</label>
+                            <input type="text" id="postTitle" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>محتوا</label>
+                            <textarea id="postContent" class="form-control" rows="4" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>رسانه‌ها (فایل، عکس، فیلم، موزیک)</label>
+                            <div class="file-input-wrapper">
+                                <input type="file" id="postFiles" class="form-control" multiple accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.txt">
+                            </div>
+                            <div id="filePreview" class="preview-container"></div>
+                        </div>
+                        <button type="submit" class="btn btn-success">ذخیره پست</button>
+                    </form>
+                    <hr class="mt-20 mb-20">
+                    <h3>لیست پست‌ها</h3>
+                    <div id="postsList"></div>
+                </div>
+
+                <!-- ویرایش نمایه -->
+                <div id="tab-profile" class="tab-content">
+                    <h3>ویرایش نمایه سایت</h3>
+                    <form id="profileForm">
+                        <div class="form-group">
+                            <label>عنوان سایت</label>
+                            <input type="text" id="siteTitleInput" class="form-control" value="ثارالله">
+                        </div>
+                        <div class="form-group">
+                            <label>آدرس لوگو (لینک تصویر)</label>
+                            <input type="text" id="siteLogoInput" class="form-control" value="https://via.placeholder.com/50/8b0000/ffffff?text=ثار">
+                        </div>
+                        <button type="submit" class="btn btn-primary">بروزرسانی نمایه</button>
+                    </form>
+                </div>
+
+                <!-- تنظیمات -->
+                <div id="tab-settings" class="tab-content">
+                    <h3>تنظیمات سایت</h3>
+                    <div class="form-group">
+                        <label>تم سایت (دارک/روشن)</label>
+                        <select id="themeSelect" class="form-control">
+                            <option value="light">روشن</option>
+                            <option value="dark">دارک</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-dark" id="applyThemeSettings">اعمال تم</button>
+                    <hr>
+                    <button class="btn btn-danger" id="resetAllData">بازنشانی تمام داده‌ها</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer style="text-align:center; padding:30px 0; margin-top:40px; border-top:1px solid #ddd;">
+    <p>رسانه تولیدات محتوای دیجیتال مذهبی ثارالله &copy; 2026</p>
+</footer>
+
+<script>
+    // ===== داده‌های اولیه =====
+    let posts = [];
+    let siteTitle = 'ثارالله';
+    let siteLogo = 'https://via.placeholder.com/50/8b0000/ffffff?text=ثار';
+    let isDark = false;
+    let isAdmin = false;
+
+    // اعتبارنامه
+    const ADMIN_CRED = {
+        username: 'Amirhm_85',
+        password: '@Am6700064181'
+    };
+
+    // ===== توابع کمکی =====
+    function saveData() {
+        localStorage.setItem('sarposts', JSON.stringify(posts));
+        localStorage.setItem('sarsiteTitle', siteTitle);
+        localStorage.setItem('sarsiteLogo', siteLogo);
+        localStorage.setItem('sardark', JSON.stringify(isDark));
+    }
+
+    function loadData() {
+        const savedPosts = localStorage.getItem('sarposts');
+        if (savedPosts) posts = JSON.parse(savedPosts);
+        const savedTitle = localStorage.getItem('sarsiteTitle');
+        if (savedTitle) siteTitle = savedTitle;
+        const savedLogo = localStorage.getItem('sarsiteLogo');
+        if (savedLogo) siteLogo = savedLogo;
+        const savedDark = localStorage.getItem('sardark');
+        if (savedDark) isDark = JSON.parse(savedDark);
+    }
+
+    function renderPosts(containerId, limit = 0) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        let list = [...posts];
+        if (limit > 0) list = list.slice(0, limit);
+        if (list.length === 0) {
+            container.innerHTML = '<p>هیچ پستی یافت نشد.</p>';
+            return;
+        }
+        container.innerHTML = list.map((p, idx) => `
+            <div class="post-item">
+                <h3>${p.title}</h3>
+                <div class="meta">${p.date} - شناسه: ${p.id}</div>
+                <div>${p.content}</div>
+                ${p.files && p.files.length ? `<div class="media-preview">${p.files.map(f => {
+                    if (f.type.startsWith('image/')) return `<img src="${f.url}" alt="${f.name}">`;
+                    if (f.type.startsWith('video/')) return `<video controls><source src="${f.url}" type="${f.type}"></video>`;
+                    if (f.type.startsWith('audio/')) return `<audio controls><source src="${f.url}" type="${f.type}"></audio>`;
+                    return `<span class="file-preview"><i class="fas fa-file"></i> ${f.name}</span>`;
+                }).join('')}</div>` : ''}
+                ${isAdmin ? `<div class="post-actions">
+                    <button class="btn btn-danger btn-sm" onclick="deletePost('${p.id}')">حذف</button>
+                    <button class="btn btn-primary btn-sm" onclick="editPost('${p.id}')">ویرایش</button>
+                </div>` : ''}
+            </div>
+        `).join('');
+        // به‌روزرسانی شمارنده
+        const totalSpan = document.getElementById('totalPosts');
+        if (totalSpan) totalSpan.textContent = posts.length;
+    }
+
+    function deletePost(id) {
+        if (!confirm('آیا از حذف این پست مطمئنید؟')) return;
+        posts = posts.filter(p => p.id !== id);
+        saveData();
+        renderAll();
+    }
+
+    function editPost(id) {
+        const post = posts.find(p => p.id === id);
+        if (!post) return;
+        document.getElementById('postTitle').value = post.title;
+        document.getElementById('postContent').value = post.content;
+        // حذف پست قدیمی و سپس افزودن مجدد
+        posts = posts.filter(p => p.id !== id);
+        saveData();
+        renderAll();
+        alert('پست برای ویرایش آماده است. پس از تغییر، دوباره ذخیره کنید.');
+    }
+
+    function renderAll() {
+        renderPosts('homePostsList', 3);
+        renderPosts('allPostsList');
+        renderPosts('postsList');
+        // بروزرسانی عنوان و لوگو
+        document.getElementById('siteTitle').textContent = siteTitle;
+        document.getElementById('siteTitleInput').value = siteTitle;
+        document.getElementById('siteLogo').src = siteLogo;
+        document.getElementById('siteLogoInput').value = siteLogo;
+        // تم
+        if (isDark) {
+            document.body.classList.add('dark');
+            document.getElementById('themeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+            document.getElementById('themeSelect').value = 'dark';
+            document.getElementById('themeStatus').textContent = 'دارک';
+        } else {
+            document.body.classList.remove('dark');
+            document.getElementById('themeToggle').innerHTML = '<i class="fas fa-moon"></i>';
+            document.getElementById('themeSelect').value = 'light';
+            document.getElementById('themeStatus').textContent = 'روشن';
+        }
+        saveData();
+    }
+
+    // ===== رویدادها =====
+
+    // لاگین
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const user = document.getElementById('username').value.trim();
+        const pass = document.getElementById('password').value.trim();
+        if (user === ADMIN_CRED.username && pass === ADMIN_CRED.password) {
+            isAdmin = true;
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('adminPanel').classList.add('show');
+            document.getElementById('loginError').style.display = 'none';
+            renderAll();
+        } else {
+            document.getElementById('loginError').style.display = 'block';
+        }
+    });
+
+    // خروج
+    document.getElementById('logoutBtn').addEventListener('click', function() {
+        isAdmin = false;
+        document.getElementById('loginSection').style.display = 'block';
+        document.getElementById('adminPanel').classList.remove('show');
+        document.getElementById('adminPanel').style.display = 'none';
+        renderAll();
+        // نمایش صفحه اصلی
+        showPage('home');
+    });
+
+    // تغییر تم از هدر
+    document.getElementById('themeToggle').addEventListener('click', function() {
+        isDark = !isDark;
+        renderAll();
+    });
+
+    // تغییر تم از پنل مدیریت
+    document.getElementById('toggleDarkModeAdmin').addEventListener('click', function() {
+        isDark = !isDark;
+        renderAll();
+    });
+
+    document.getElementById('applyThemeSettings').addEventListener('click', function() {
+        const val = document.getElementById('themeSelect').value;
+        isDark = (val === 'dark');
+        renderAll();
+    });
+
+    // پروفایل
+    document.getElementById('profileForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        siteTitle = document.getElementById('siteTitleInput').value.trim() || 'ثارالله';
+        siteLogo = document.getElementById('siteLogoInput').value.trim() || 'https://via.placeholder.com/50/8b0000/ffffff?text=ثار';
+        renderAll();
+        alert('نمایه با موفقیت بروزرسانی شد.');
+    });
+
+    // ارسال پست
+    document.getElementById('postForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const title = document.getElementById('postTitle').value.trim();
+        const content = document.getElementById('postContent').value.trim();
+        if (!title || !content) {
+            alert('عنوان و محتوا الزامی است.');
+            return;
+        }
+        const files = document.getElementById('postFiles').files;
+        let fileData = [];
+        if (files.length) {
+            fileData = Array.from(files).map(f => ({
+                name: f.name,
+                type: f.type,
+                url: URL.createObjectURL(f)
+            }));
+        }
+        const newPost = {
+            id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5),
+            title,
+            content,
+            date: new Date().toLocaleDateString('fa-IR'),
+            files: fileData
+        };
+        posts.unshift(newPost);
+        saveData();
+        renderAll();
+        document.getElementById('postForm').reset();
+        document.getElementById('filePreview').innerHTML = '';
+        alert('پست با موفقیت اضافه شد.');
+    });
+
+    // پیش‌نمایش فایل‌ها
+    document.getElementById('postFiles').addEventListener('change', function(e) {
+        const container = document.getElementById('filePreview');
+        container.innerHTML = '';
+        const files = e.target.files;
+        if (!files.length) return;
+        Array.from(files).forEach(f => {
+            const span = document.createElement('span');
+            span.className = 'file-preview';
+            span.innerHTML = `<i class="fas fa-file"></i> ${f.name} (${(f.size/1024).toFixed(1)}KB)`;
+            container.appendChild(span);
+        });
+    });
+
+    // بازنشانی داده‌ها
+    document.getElementById('resetAllData').addEventListener('click', function() {
+        if (!confirm('همه داده‌ها پاک خواهند شد. ادامه می‌دهید؟')) return;
+        posts = [];
+        siteTitle = 'ثارالله';
+        siteLogo = 'https://via.placeholder.com/50/8b0000/ffffff?text=ثار';
+        isDark = false;
+        saveData();
+        renderAll();
+        alert('همه داده‌ها بازنشانی شدند.');
+    });
+
+    // نمایش صفحات
+    function showPage(page) {
+        document.querySelectorAll('.page-content').forEach(el => el.classList.add('hidden'));
+        document.getElementById(`page-${page}`).classList.remove('hidden');
+        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+        document.querySelector(`nav a[data-page="${page}"]`)?.classList.add('active');
+        // اگر صفحه مدیریت است و ادمین لاگین کرده
+        if (page === 'admin') {
+            if (isAdmin) {
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('adminPanel').classList.add('show');
+                document.getElementById('adminPanel').style.display = 'block';
+            } else {
+                document.getElementById('loginSection').style.display = 'block';
+                document.getElementById('adminPanel').classList.remove('show');
+                document.getElementById('adminPanel').style.display = 'none';
+            }
+        }
+    }
+
+    document.querySelectorAll('nav a[data-page]').forEach(a => {
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            const page = this.dataset.page;
+            if (page === 'admin') {
+                // اگر لاگین نکرده، فرم لاگین نشان داده شود
+                if (!isAdmin) {
+                    document.getElementById('loginSection').style.display = 'block';
+                    document.getElementById('adminPanel').classList.remove('show');
+                    document.getElementById('adminPanel').style.display = 'none';
+                } else {
+                    document.getElementById('loginSection').style.display = 'none';
+                    document.getElementById('adminPanel').classList.add('show');
+                    document.getElementById('adminPanel').style.display = 'block';
+                }
+                // نمایش صفحه مدیریت
+                document.querySelectorAll('.page-content').forEach(el => el.classList.add('hidden'));
+                document.getElementById('page-admin').classList.remove('hidden');
+                document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+                return;
+            }
+            showPage(page);
+        });
+    });
+
+    // تب‌های مدیریت
+    document.querySelectorAll('.admin-tabs button').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.admin-tabs button').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            const tab = this.dataset.tab;
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById(`tab-${tab}`).classList.add('active');
+        });
+    });
+
+    // بارگذاری اولیه
+    loadData();
+    renderAll();
+    showPage('home');
+
+    // اگر قبلاً لاگین کرده بود
+    if (isAdmin) {
+        document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('adminPanel').classList.add('show');
+        document.getElementById('adminPanel').style.display = 'block';
+    }
+
+    console.log('رسانه ثارالله بارگذاری شد.');
+</script>
+</body>
+</html>
