@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل مدیریت - رسانه ثارالله</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', 'Segoe UI', sans-serif;
+        }
+
+        :root {
+            --primary: #8b0000;
+            --primary-dark: #5a0000;
+            --primary-light: #cc3333;
+            --gold: #d4a017;
+            --gold-light: #f5d742;
+            --sidebar-width: 280px;
+            --header-height: 70px;
+            --bg-light: #f0f2f5;
+            --bg-dark: #1a1a1a;
+            --card-light: #ffffff;
+            --card-dark: #2d2d2d;
+            --text-light: #e0e0e0;
+            --text-dark: #333333;
+            --shadow: 0 8px 32px rgba(0,0,0,0.12);
+            --radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            background: var(--bg-light);
+            color: var(--text-dark);
+            transition: var(--transition);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        body.dark {
+            background: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        /* ===== سایدبار ===== */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--primary-dark), var(--primary));
+            color: #fff;
+            height: 100vh;
+            position: fixed;
+            right: 0;
+            top: 0;
+            overflow-y: auto;
+            padding: 25px 0;
+            transition: var(--transition);
+            z-index: 1000;
+            box-shadow: 4px 0 30px rgba(0,0,0,0.3);
+        }
+
+        body.dark .sidebar {
+            background: linear-gradient(180deg, #1a1a1a, #2d2d2d);
+            border-left: 2px solid var(--gold);
+        }
+
+        .sidebar-logo {
+            text-align: center;
+            padding: 0 20px 25px;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-logo img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+            padding: 3px;
+            background: #fff;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-logo h2 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-logo small {
+            display: block;
+            opacity: 0.7;
+            font-size: 0.8rem;
+            -webkit-text-fill-color: #fff;
+        }
+
+        .sidebar-menu {
+            padding: 0 15px;
+        }
+
+        .sidebar-menu .menu-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            opacity: 0.5;
+            padding: 15px 10px 5px;
+            letter-spacing: 1px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 18px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: var(--transition);
+            margin: 3px 0;
+            font-weight: 500;
+        }
+
+        .sidebar-menu a:hover {
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+            transform: translateX(-5px);
+        }
+
+        .sidebar-menu a.active {
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            border-right: 4px solid var(--gold);
+        }
+
+        .sidebar-menu a i {
+            width: 24px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .sidebar-menu a .badge {
+            background: var(--gold);
+            color: var(--primary-dark);
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-right: auto;
+        }
+
+        body.dark .sidebar-menu a .badge {
+            background: var(--gold-light);
+            color: #000;
+        }
+
+        /* ===== محتوای اصلی ===== */
+        .main-content {
+            margin-right: var(--sidebar-width);
+            flex: 1;
+            padding: 30px;
+            min-height: 100vh;
+            transition: var(--transition);
+        }
+
+        /* هدر بالایی */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            background: var(--card-light);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        body.dark .top-header {
+            background: var(--card-dark);
+        }
+
+        .top-header .page-title h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+        }
+
+        body.dark .top-header .page-title h3 {
+            color: var(--gold-light);
+        }
+
+        .top-header .page-title small {
+            display: block;
+            opacity: 0.6;
+            font-size: 0.85rem;
+        }
+
+        .top-header .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .top-header .header-actions .btn {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .top-header .header-actions .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-success { background: #28a745; color: #fff; }
+        .btn-danger { background: #dc3545; color: #fff; }
+        .btn-warning { background: #ffc107; color: #333; }
+        .btn-info { background: #17a2b8; color: #fff; }
+        .btn-dark { background: #343a40; color: #fff; }
+        .btn-gold { background: var(--gold); color: #fff; }
+        .btn-gold:hover { background: var(--gold-light); color: #000; }
+
+        /* کارت‌ها */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--card-light);
+            padding: 25px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-bottom: 4px solid var(--primary);
+        }
+
+        body.dark .stat-card {
+            background: var(--card-dark);
+            border-bottom-color: var(--gold);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        }
+
+        .stat-card .stat-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        body.dark .stat-card .stat-icon {
+            color: var(--gold-light);
+        }
+
+        .stat-card .stat-number {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--primary);
+        }
+
+        body.dark .stat-card .stat-number {
+            color: var(--gold-light);
+        }
+
+        .stat-card .stat-label {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* پنل‌های محتوا */
+        .content-panel {
+            background: var(--card-light);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
+        }
+
+        body.dark .content-panel {
+            background: var(--card-dark);
+        }
+
+        .content-panel .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+            margin-bottom: 20px;
+        }
+
+        body.dark .content-panel .panel-header {
+            border-bottom-color: #444;
+        }
+
+        .content-panel .panel-header h4 {
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        body.dark .content-panel .panel-header h4 {
+            color: var(--gold-light);
+        }
+
+        /* فرم‌ها */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 16px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: #fff;
+        }
+
+        body.dark .form-control {
+            background: #3a3a3a;
+            border-color: #555;
+            color: #ddd;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(139,0,0,0.1);
+        }
+
+        body.dark .form-control:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 4px rgba(212,160,23,0.1);
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        /* جدول */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        table th {
+            background: var(--primary);
+            color: #fff;
+            padding: 12px 15px;
+            text-align: right;
+            font-weight: 600;
+        }
+
+        body.dark table th {
+            background: var(--gold);
+            color: #000;
+        }
+
+        table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        body.dark table td {
+            border-bottom-color: #444;
+        }
+
+        table tr:hover {
+            background: rgba(139,0,0,0.05);
+        }
+
+        body.dark table tr:hover {
+            background: rgba(212,160,23,0.05);
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .table-actions .btn-sm {
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        /* مودال */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-box {
+            background: var(--card-light);
+            border-radius: var(--radius);
+            padding: 35px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideUp 0.3s ease;
+        }
+
+        body.dark .modal-box {
+            background: var(--card-dark);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-box .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        body.dark .modal-box .modal-header {
+            border-bottom-color: #444;
+        }
+
+        .modal-box .modal-header h3 {
+            color: var(--primary);
+        }
+
+        body.dark .modal-box .modal-header h3 {
+            color: var(--gold-light);
+        }
+
+        .modal-box .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            transition: var(--transition);
+        }
+
+        .modal-box .modal-close:hover {
+            color: #dc3545;
+            transform: rotate(90deg);
+        }
+
+        /* پیام‌ها */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: var(--primary);
+            color: #fff;
+            padding: 16px 28px;
+            border-radius: 14px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            transform: translateX(-100px);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 9999;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        body.dark .toast {
+            background: var(--gold);
+            color: #000;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast.success { background: #28a745; }
+        .toast.error { background: #dc3545; }
+        .toast.warning { background: #ffc107; color: #000; }
+
+        /* وضعیت */
+        .status-badge {
+            display: inline-block;
+            padding: 3px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .status-badge.active { background: #28a745; color: #fff; }
+        .status-badge.inactive { background: #dc3545; color: #fff; }
+        .status-badge.pending { background: #ffc107; color: #000; }
+
+        /* پیش‌نمایش فایل */
+        .file-preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .file-preview-item {
+            background: #f0f0f0;
+            padding: 6px 14px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+        }
+
+        body.dark .file-preview-item {
+            background: #3d3d3d;
+        }
+
+        /* اسکرول سایدبار */
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+        }
+
+        /* واکنش‌گرا */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 70px;
+                padding: 15px 0;
+            }
+            .sidebar-logo h2,
+            .sidebar-logo small,
+            .sidebar-menu .menu-label,
+            .sidebar-menu a span,
+            .sidebar-menu a .badge {
+                display: none;
+            }
+            .sidebar-menu a {
+                justify-content: center;
+                padding: 12px;
+            }
+            .sidebar-menu a i {
+                font-size: 1.3rem;
+            }
+            .main-content {
+                margin-right: 70px;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .sidebar {
+                width: 60px;
+                padding: 10px 0;
+            }
+            .main-content {
+                margin-right: 60px;
+                padding: 10px;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .top-header {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .top-header .header-actions {
+                justify-content: center;
+            }
+        }
+
+        /* کلاس‌های کمکی */
+        .hidden { display: none !important; }
+        .mt-20 { margin-top: 20px; }
+        .mb-20 { margin-bottom: 20px; }
+        .text-center { text-align: center; }
+        .text-muted { opacity: 0.6; }
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .gap-10 { gap: 10px; }
+        .w-full { width: 100%; }
+    </style>
+</head>
+<body>
+
+<!-- ===== سایدبار ===== -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+        <img id="adminLogo" src="https://via.placeholder.com/70/8b0000/ffffff?text=ثار" alt="لوگو">
+        <h2>ثارالله</h2>
+        <small>پنل مدیریت</small>
+    </div>
+    <nav class="sidebar-menu">
+        <div class="menu-label">داشبورد</div>
+        <a href="#" class="active" data-section="dashboard">
+            <i class="fas fa-chart-pie"></i>
+            <span>داشبورد</span>
+        </a>
+        <a href="#" data-section="posts">
+            <i class="fas fa-newspaper"></i>
+            <span>مدیریت پست‌ها</span>
+            <span class="badge" id="postCountBadge">0</span>
+        </a>
+        <a href="#" data-section="comments">
+            <i class="fas fa-comments"></i>
+            <span>نظرات</span>
+            <span class="badge" id="commentCountBadge">0</span>
+        </a>
+
+        <div class="menu-label">مدیریت</div>
+        <a href="#" data-section="users">
+            <i class="fas fa-users"></i>
+            <span>کاربران</span>
+        </a>
+        <a href="#" data-section="media">
+            <i class="fas fa-photo-video"></i>
+            <span>رسانه‌ها</span>
+        </a>
+        <a href="#" data-section="categories">
+            <i class="fas fa-tags"></i>
+            <span>دسته‌بندی‌ها</span>
+        </a>
+
+        <div class="menu-label">تنظیمات</div>
+        <a href="#" data-section="profile">
+            <i class="fas fa-id-card"></i>
+            <span>نمایه سایت</span>
+        </a>
+        <a href="#" data-section="settings">
+            <i class="fas fa-sliders-h"></i>
+            <span>تنظیمات</span>
+        </a>
+        <a href="#" data-section="backup">
+            <i class="fas fa-database"></i>
+            <span>پشتیبان‌گیری</span>
+        </a>
+    </nav>
+</aside>
+
+<!-- ===== محتوای اصلی ===== -->
+<main class="main-content" id="mainContent">
+    <!-- هدر بالا -->
+    <header class="top-header">
+        <div class="page-title">
+            <h3 id="pageTitle">داشبورد</h3>
+            <small id="pageSubtitle">خلاصه وضعیت سایت</small>
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-dark" id="toggleThemeBtn">
+                <i class="fas fa-moon"></i> تم
+            </button>
+            <button class="btn btn-gold" id="viewSiteBtn">
+                <i class="fas fa-external-link-alt"></i> مشاهده سایت
+            </button>
+            <button class="btn btn-danger" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> خروج
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== بخش‌ها ===== -->
+    
+    <!-- داشبورد -->
+    <section id="section-dashboard" class="section-content">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-file-alt"></i></div>
+                <div class="stat-number" id="totalPosts">0</div>
+                <div class="stat-label">کل پست‌ها</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-comment"></i></div>
+                <div class="stat-number" id="totalComments">0</div>
+                <div class="stat-label">نظرات</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-eye"></i></div>
+                <div class="stat-number" id="totalViews">0</div>
+                <div class="stat-label">بازدید کل</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-tags"></i></div>
+                <div class="stat-number" id="totalCategories">0</div>
+                <div class="stat-label">دسته‌بندی‌ها</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-users"></i></div>
+                <div class="stat-number" id="totalUsers">1</div>
+                <div class="stat-label">کاربران</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-image"></i></div>
+                <div class="stat-number" id="totalMedia">0</div>
+                <div class="stat-label">فایل‌های رسانه</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="content-panel">
+                <div class="panel-header">
+                    <h4><i class="fas fa-clock"></i> آخرین فعالیت‌ها</h4>
+                </div>
+                <div id="recentActivities">
+                    <p class="text-muted">هیچ فعالیتی ثبت نشده است.</p>
+                </div>
+            </div>
+            <div class="content-panel">
+                <div class="panel-header">
+                    <h4><i class="fas fa-chart-line"></i> وضعیت سایت</h4>
+                </div>
+                <div class="form-group">
+                    <label>وضعیت تم</label>
+                    <div><span class="status-badge active" id="themeStatusBadge">روشن</span></div>
+                </div>
+                <div class="form-group">
+                    <label>تعداد پست‌ها</label>
+                    <div><strong id="statusPosts">0</strong></div>
+                </div>
+                <div class="form-group">
+                    <label>تعداد نظرات</label>
+                    <div><strong id="statusComments">0</strong></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- مدیریت پست‌ها -->
+    <section id="section-posts" class="section-content hidden">
+        <div class="content-panel">
+            <div class="panel-header">
+                <h4><i class="fas fa-plus-circle"></i> افزودن پست جدید</h4>
+            </div>
+            <form id="postForm">
+                <div class="row">
+                    <div class="form-group">
+                        <label>عنوان پست</label>
+                        <input type="text" id="postTitle" class="form-control" required placeholder="عنوان جذاب...">
+                    </div>
+                    <div class="form-group">
+                        <label>دسته‌بندی</label>
+                        <select id="postCategory" class="form-control">
+                            <option value="مقاله">📄 مقاله</option>
+                            <option value="ویدیو">🎬 ویدیو</option>
+                            <option value="پادکست">🎙️ پادکست</option>
+                            <option value="تصویر">🖼️ تصویر</option>
+                            <option value="سایر">📌 سایر</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>محتوا</label>
+                    <textarea id="postContent" class="form-control" rows="4" required placeholder="متن پست را وارد کنید..."></textarea>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label>برچسب‌ها (با کاما جدا کنید)</label>
+                        <input type="text" id="postTags" class="form-control" placeholder="مذهبی, فرهنگی, اجتماعی">
+                    </div>
+                    <div class="form-group">
+                        <label>وضعیت انتشار</label>
+                        <select id="postStatus" class="form-control">
+                            <option value="publish">منتشر شده</option>
+                            <option value="draft">پیش‌نویس</option>
+                            <option value="pending">در انتظار بررسی</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>رسانه‌ها (عکس، فیلم، موزیک، فایل)</label>
+                    <input type="file" id="postFiles" class="form-control" multiple accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.txt,.zip">
+                    <div id="filePreview" class="file-preview-container"></div>
+                </div>
+                <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> انتشار پست</button>
+            </form>
+        </div>
+
+        <div class="content-panel">
+            <div class="panel-header">
+                <h4><i class="fas fa-list"></i> لیست پست‌ها</h4>
+                <div>
+                    <input type="text" id="postSearch" class="form-control" placeholder="جستجوی پست..." style="width:200px;display:inline-block;">
+                    <button class="btn btn-primary btn-sm" onclick="searchPostsAdmin()"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>عنوان</th>
+                            <th>دسته</th>
+                            <th>تاریخ</th>
+                            <th>وضعیت</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="postsTableBody">
+                        <tr><td colspan="5" class="text-center text-muted">هیچ پستی یافت نشد</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- نظرات -->
+    <section id="section-comments" class="section-content hidden">
+        <div class="content-panel">
+            <div class="panel-header">
+                <h4><i class="fas fa-comments"></i> مدیریت نظرات</h4>
+                <button class="btn btn-danger btn-sm" onclick="deleteAllComments()"><i class="fas fa-trash-alt"></i> حذف همه</button>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>نویسنده</th>
+                            <th>متن نظر</th>
+                            <th>پست مربوطه</th>
+                            <th>تاریخ</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="commentsTableBody">
+                        <tr><td colspan="5" class="text-center text-muted">هیچ نظری یافت نشد</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- کاربران -->
+    <section id="section-users" class="section-content hidden">
+        <div class="content-panel">
+            <div class="panel-header">
+                <h4><i class="fas fa-users"></i> مدیریت کاربران</h4>
+                <button class="btn btn-success btn-sm" onclick="showAddUserModal()"><i class="fas fa-user-plus"></i> افزودن کاربر</button>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>نام کاربری</th>
+                            <th>نقش</th>
+                            <th>وضعیت</th>
+                            <th>تاریخ ثبت</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <tr><td colspan="5" class="text-center text-muted">هیچ کاربری یافت نشد</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- رسانه‌ها -->
+    <section id="section-media" class="section-content hidden">
+        <div class="content-panel">
+            <div class="panel-header">
+                <h4><i class="fas fa-photo-video"></i> مدیریت رسانه‌ها</h4>
+            </div>
+            <div id="mediaGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:15px;">
+                <p class="text-muted">هیچ رسانه‌ای یافت نشد</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- دسته‌بندی‌ها -->
+    <section id="section-categories" class="section-content hidden">
+        <div class="content-panel">
+            <div class="panel-header">
+                <h4><i class="fas fa-tags"></i> مدیریت دسته‌بندی‌ها</h4>
+                <button class="btn btn-success btn-sm" onclick="showAddCategoryModal()"><i class="fas fa-plus"></i> افزودن دسته</button>
+            </div>
+            <div id="categoriesList">
+                <p class="text-muted">هیچ دسته‌بندی یافت نشد</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- نمایه سایت -->
+    <section id="section-profile" class="section-content hidden">
+        <div class="content-panel">
+            <div class="panel-header">
+                <h4><i class="fas fa-id-card"></i> ویرایش نمایه سایت</h4>
+            </div>
+            <form id="profileForm">
+                <div class="row">
+                    <div class="form-group">
+                        <label>عنوان سایت</label>
+                        <input type="text" id="siteTitleInput" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>آدرس لوگو</label>
+                        <input type="text" id="siteLogoInput" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>شعار سایت</label>
+                    <input type="text" id="siteSloganInput" class="form-control" placeholder="شعار سایت را وارد کنید">
+                </div>
+                <div class="form-group">
+                    <label>توضیحات سایت</label>
+                    <textarea id="siteDescription" class="form-control" rows="3" placeholder="توضیحات کوتاه درباره سایت"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> بروزرسانی نمایه</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- تنظیمات -->
+    <section id="section-settings" class="section-content hidden">
+        <div class="content-panel">
+            <div class="panel-header">
+                <h4><i class="fas fa-sliders-h"></i> تنظیمات پیشرفته</h4>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label>تم سایت</label>
+                    <select id="themeSelect" class="form-control">
+                        <option value="light">☀️ روشن</option>
+                        <option value="dark">🌙 دارک</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>تعداد پست در هر صفحه</label>
+                    <input type="number" id="postsPerPage" class="form-control" value="10" min="1" max="50">
+                </div>
+                <div class="form-group">
+                    <label>فعالیت نظرات</label>
+                    <select id="commentsEnable" class="form-control">
+                        <option value="true">فعال</option>
+                        <option value="false">غیرفعال</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn btn-dark" id="applySettingsBtn"><i class="fas fa-check"></i> اعمال تنظیمات</button>
+        </div>
+    </section>
+
+    <!-- پشتیبان‌گیری -->
+    <section id="section-backup" class="section-content hidden">
+        <div class="content-panel">
+            <div class="panel-header">
+                <h4><i class="fas fa-database"></i> پشتیبان‌گیری و بازیابی</h4>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <button class="btn btn-success w-full" onclick="exportFullData()">
+                        <i class="fas fa-download"></i> خروجی کامل داده‌ها
+                    </button>
+                    <p class="text-muted" style="margin-top:8px;">دریافت فایل JSON شامل همه پست‌ها، نظرات و تنظیمات</p>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-info w-full" onclick="importFullData()">
+                        <i class="fas fa-upload"></i> وارد کردن داده‌ها
+                    </button>
+                    <p class="text-muted" style="margin-top:8px;">بارگذاری فایل JSON برای بازیابی اطلاعات</p>
+                </div>
+            </div>
+            <hr class="mt-20 mb-20">
+            <div class="row">
+                <div class="form-group">
+                    <button class="btn btn-danger w-full" onclick="resetAllData()">
+                        <i class="fas fa-trash-alt"></i> بازنشانی کامل داده‌ها
+                    </button>
+                    <p class="text-muted" style="margin-top:8px;">⚠️ تمام داده‌ها پاک می‌شوند. این عمل غیرقابل بازگشت است.</p>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-warning w-full" onclick="clearCache()">
+                        <i class="fas fa-broom"></i> پاکسازی کش
+                    </button>
+                    <p class="text-muted" style="margin-top:8px;">پاکسازی حافظه موقت مرورگر</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- ===== مودال افزودن کاربر ===== -->
+<div class="modal-overlay" id="addUserModal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3><i class="fas fa-user-plus"></i> افزودن کاربر جدید</h3>
+            <button class="modal-close" onclick="closeModal('addUserModal')">&times;</button>
+        </div>
+        <form id="addUserForm">
+            <div class="form-group">
+                <label>نام کاربری</label>
+                <input type="text" id="newUsername" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>رمز عبور</label>
+                <input type="password" id="newPassword" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>نقش</label>
+                <select id="newUserRole" class="form-control">
+                    <option value="admin">مدیر</option>
+                    <option value="editor">ویرایشگر</option>
+                    <option value="viewer">بیننده</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success w-full"><i class="fas fa-save"></i> افزودن کاربر</button>
+        </form>
+    </div>
+</div>
+
+<!-- ===== مودال افزودن دسته ===== -->
+<div class="modal-overlay" id="addCategoryModal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3><i class="fas fa-tag"></i> افزودن دسته‌بندی جدید</h3>
+            <button class="modal-close" onclick="closeModal('addCategoryModal')">&times;</button>
+        </div>
+        <form id="addCategoryForm">
+            <div class="form-group">
+                <label>نام دسته‌بندی</label>
+                <input type="text" id="newCategoryName" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>آیکون</label>
+                <select id="newCategoryIcon" class="form-control">
+                    <option value="fa-file-alt">📄 مقاله</option>
+                    <option value="fa-video">🎬 ویدیو</option>
+                    <option value="fa-podcast">🎙️ پادکست</option>
+                    <option value="fa-image">🖼️ تصویر</option>
+                    <option value="fa-tag">🏷️ سایر</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success w-full"><i class="fas fa-save"></i> افزودن دسته</button>
+        </form>
+    </div>
+</div>
+
+<!-- ===== Toast ===== -->
+<div id="toast" class="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMessage">پیام</span>
+</div>
+
+<script>
+    // ===== داده‌های اصلی =====
+    let posts = [];
+    let comments = [];
+    let users = [];
+    let categories = [];
+    let siteData = {
+        title: 'ثارالله',
+        logo: 'https://via.placeholder.com/70/8b0000/ffffff?text=ثار',
+        slogan: 'رسانه تولیدات محتوای دیجیتال مذهبی',
+        description: 'محتواهای اصیل و ارزشی در بستر دیجیتال'
+    };
+    let settings = {
+        theme: 'light',
+        postsPerPage: 10,
+        commentsEnabled: true
+    };
+    let totalViews = 0;
+    let isDark = false;
+
+    // اعتبارنامه پیش‌فرض
+    const DEFAULT_ADMIN = {
+        username: 'Amirhm_85',
+        password: '@Am6700064181',
+        role: 'admin'
+    };
+
+    // ===== توابع =====
+    function showToast(message, type = 'success') {
+        const toast = document.getElementById('toast');
+        const msg = document.getElementById('toastMessage');
+        msg.textContent = message;
+        toast.className = `toast ${type}`;
+        const icons = {
+            success: 'fa-check-circle',
+            error: 'fa-exclamation-circle',
+            warning: 'fa-exclamation-triangle'
+        };
+        toast.querySelector('i').className = `fas ${icons[type] || icons.success}`;
+        toast.classList.add('show');
+        clearTimeout(toast._timeout);
+        toast._timeout = setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('show');
+    }
+
+    function openModal(id) {
+        document.getElementById(id).classList.add('show');
+    }
+
+    // کلیک خارج از مودال برای بستن
+    document.querySelectorAll('.modal-overlay').forEach(el => {
+        el.addEventListener('click', function(e) {
+            if (e.target === this) this.classList.remove('show');
+        });
+    });
+
+    function loadData() {
+        try {
+            const savedPosts = localStorage.getItem('sarposts');
+            if (savedPosts) posts = JSON.parse(savedPosts);
+            const savedComments = localStorage.getItem('sarcomments');
+            if (savedComments) comments = JSON.parse(savedComments);
+            const savedUsers = localStorage.getItem('sarusres');
+            if (savedUsers) users = JSON.parse(savedUsers);
+            const savedCategories = localStorage.getItem('sarcategories');
+            if (savedCategories) categories = JSON.parse(savedCategories);
+            const savedSite = localStorage.getItem('sarsiteData');
+            if (savedSite) siteData = JSON.parse(savedSite);
+            const savedSettings = localStorage.getItem('sarsettings');
+            if (savedSettings) settings = JSON.parse(savedSettings);
+            const savedViews = localStorage.getItem('sarviews');
+            if (savedViews) totalViews = parseInt(savedViews);
+            isDark = settings.theme === 'dark';
+        } catch(e) {
+            console.warn('خطا در بارگذاری:', e);
+        }
+        // افزودن کاربر پیش‌فرض اگر وجود نداشت
+        if (!users.some(u => u.username === DEFAULT_ADMIN.username)) {
+            users.push({...DEFAULT_ADMIN, created: new Date().toLocaleDateString('fa-IR')});
+        }
+    }
+
+    function saveData() {
+        try {
+            localStorage.setItem('sarposts', JSON.stringify(posts));
+            localStorage.setItem('sarcomments', JSON.stringify(comments));
+            localStorage.setItem('sarusres', JSON.stringify(users));
+            localStorage.setItem('sarcategories', JSON.stringify(categories));
+            localStorage.setItem('sarsiteData', JSON.stringify(siteData));
+            localStorage.setItem('sarsettings', JSON.stringify(settings));
+            localStorage.setItem('sarviews', String(totalViews));
+        } catch(e) {
+            console.warn('خطا در ذخیره‌سازی:', e);
+        }
+    }
+
+    function generateId() {
+        return Date.now().toString(36) + Math.random().toString(36).substr(2, 6);
+    }
+
+    // ===== رندرینگ =====
+    function renderAll() {
+        renderStats();
+        renderPostsTable();
+        renderCommentsTable();
+        renderUsersTable();
+        renderCategories();
+        renderMedia();
+        renderProfile();
+        renderSettings();
+        updateBadges();
+        applyTheme();
+        saveData();
+    }
+
+    function renderStats() {
+        document.getElementById('totalPosts').textContent = posts.length;
+        document.getElementById('totalComments').textContent = comments.length;
+        document.getElementById('totalViews').textContent = totalViews;
+        const uniqueCategories = new Set(posts.map(p => p.category).filter(Boolean));
+        document.getElementById('totalCategories').textContent = uniqueCategories.size;
+        document.getElementById('totalUsers').textContent = users.length;
+        const mediaCount = posts.reduce((acc, p) => acc + (p.files ? p.files.length : 0), 0);
+        document.getElementById('totalMedia').textContent = mediaCount;
+        document.getElementById('statusPosts').textContent = posts.length;
+        document.getElementById('statusComments').textContent = comments.length;
+        document.getElementById('themeStatusBadge').textContent = isDark ? 'دارک' : 'روشن';
+        document.getElementById('themeStatusBadge').className = `status-badge ${isDark ? 'inactive' : 'active'}`;
+    }
+
+    function renderPostsTable() {
+        const tbody = document.getElementById('postsTableBody');
+        if (posts.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">هیچ پستی یافت نشد</td></tr>';
+            return;
+        }
+        tbody.innerHTML = posts.map(p => `
+            <tr>
+                <td><strong>${p.title}</strong></td>
+                <td><span class="status-badge active">${p.category || 'سایر'}</span></td>
+                <td>${p.date || 'نامشخص'}</td>
+                <td><span class="status-badge ${p.status === 'publish' ? 'active' : p.status === 'draft' ? 'pending' : 'inactive'}">${p.status === 'publish' ? 'منتشر شده' : p.status === 'draft' ? 'پیش‌نویس' : 'در انتظار'}</span></td>
+                <td>
+                    <div class="table-actions">
+                        <button class="btn-sm btn-primary" onclick="editPost('${p.id}')"><i class="fas fa-edit"></i></button>
+                        <button class="btn-sm btn-danger" onclick="deletePost('${p.id}')"><i class="fas fa-trash"></i></button>
+                        <button class="btn-sm btn-info" onclick="viewPost('${p.id}')"><i class="fas fa-eye"></i></button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function renderCommentsTable() {
+        const tbody = document.getElementById('commentsTableBody');
+        if (comments.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">هیچ نظری یافت نشد</td></tr>';
+            return;
+        }
+        tbody.innerHTML = comments.map(c => {
+            const post = posts.find(p => p.id === c.postId);
+            return `
+                <tr>
+                    <td><strong>${c.author}</strong></td>
+                    <td>${c.text.length > 50 ? c.text.substring(0,50) + '...' : c.text}</td>
+                    <td>${post ? post.title : 'پست حذف شده'}</td>
+                    <td>${c.date || 'نامشخص'}</td>
+                    <td>
+                        <div class="table-actions">
+                            <button class="btn-sm btn-danger" onclick="deleteComment('${c.id}')"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+    }
+
+    function renderUsersTable() {
+        const tbody = document.getElementById('usersTableBody');
+        if (users.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">هیچ کاربری یافت نشد</td></tr>';
+            return;
+        }
+        tbody.innerHTML = users.map(u => `
+            <tr>
+                <td><strong>${u.username}</strong></td>
+                <td><span class="status-badge ${u.role === 'admin' ? 'active' : u.role === 'editor' ? 'pending' : 'inactive'}">${u.role === 'admin' ? 'مدیر' : u.role === 'editor' ? 'ویرایشگر' : 'بیننده'}</span></td>
+                <td><span class="status-badge active">فعال</span></td>
+                <td>${u.created || 'امروز'}</td>
+                <td>
+                    <div class="table-actions">
+                        ${u.username !== DEFAULT_ADMIN.username ? `<button class="btn-sm btn-danger" onclick="deleteUser('${u.username}')"><i class="fas fa-trash"></i></button>` : '<span class="text-muted">پیش‌فرض</span>'}
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function renderCategories() {
+        const container = document.getElementById('categoriesList');
+        if (categories.length === 0) {
+            container.innerHTML = '<p class="text-muted">هیچ دسته‌بندی یافت نشد</p>';
+            return;
+        }
+        container.innerHTML = categories.map(c => `
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 15px;border-bottom:1px solid #eee;">
+                <span><i class="fas ${c.icon || 'fa-tag'}"></i> ${c.name}</span>
+                <span class="text-muted">${posts.filter(p => p.category === c.name).length} پست</span>
+                <button class="btn-sm btn-danger" onclick="deleteCategory('${c.id}')"><i class="fas fa-trash"></i></button>
+            </div>
+        `).join('');
+    }
+
+    function renderMedia() {
+        const container = document.getElementById('mediaGrid');
+        let allFiles = [];
+        posts.forEach(p => {
+            if (p.files) {
+                p.files.forEach(f => {
+                    allFiles.push({...f, postTitle: p.title, postId: p.id});
+                });
+            }
+        });
+        if (allFiles.length === 0) {
+            container.innerHTML = '<p class="text-muted">هیچ رسانه‌ای یافت نشد</p>';
+            return;
+        }
+        container.innerHTML = allFiles.map(f => `
+            <div style="background:var(--card-light);border-radius:12px;padding:10px;text-align:center;box-shadow:var(--shadow);">
+                ${f.type.startsWith('image/') ? `<img src="${f.url}" style="width:100%;height:120px;object-fit:cover;border-radius:8px;">` : 
+                  f.type.startsWith('video/') ? `<i class="fas fa-video" style="font-size:3rem;color:var(--primary);"></i>` :
+                  f.type.startsWith('audio/') ? `<i class="fas fa-music" style="font-size:3rem;color:var(--primary);"></i>` :
+                  `<i class="fas fa-file" style="font-size:3rem;color:var(--primary);"></i>`}
+                <p style="font-size:0.75rem;margin-top:8px;">${f.name}</p>
+                <small class="text-muted">${f.postTitle}</small>
+            </div>
+        `).join('');
+    }
+
+    function renderProfile() {
+        document.getElementById('siteTitleInput').value = siteData.title;
+        document.getElementById('siteLogoInput').value = siteData.logo;
+        document.getElementById('siteSloganInput').value = siteData.slogan || '';
+        document.getElementById('siteDescription').value = siteData.description || '';
+        document.getElementById('adminLogo').src = siteData.logo;
+    }
+
+    function renderSettings() {
+        document.getElementById('themeSelect').value = settings.theme || 'light';
+        document.getElementById('postsPerPage').value = settings.postsPerPage || 10;
+        document.getElementById('commentsEnable').value = settings.commentsEnabled ? 'true' : 'false';
+    }
+
+    function updateBadges() {
+        document.getElementById('postCountBadge').textContent = posts.length;
+        document.getElementById('commentCountBadge').textContent = comments.length;
+    }
+
+    function applyTheme() {
+        if (isDark) {
+            document.body.classList.add('dark');
+            document.getElementById('toggleThemeBtn').innerHTML = '<i class="fas fa-sun"></i> تم';
+        } else {
+            document.body.classList.remove('dark');
+            document.getElementById('toggleThemeBtn').innerHTML = '<i class="fas fa-moon"></i> تم';
+        }
+    }
+
+    // ===== عملیات پست‌ها =====
+    function deletePost(id) {
+        if (!confirm('آیا از حذف این پست مطمئنید؟')) return;
+        posts = posts.filter(p => p.id !== id);
+        comments = comments.filter(c => c.postId !== id);
+        saveData();
+        renderAll();
+        showToast('پست با موفقیت حذف شد', 'success');
+    }
+
+    function editPost(id) {
+        const post = posts.find(p => p.id === id);
+        if (!post) return;
+        document.getElementById('postTitle').value = post.title;
+        document.getElementById('postContent').value = post.content;
+        document.getElementById('postCategory').value = post.category || 'سایر';
+        document.getElementById('postTags').value = (post.tags || []).join(', ');
+        document.getElementById('postStatus').value = post.status || 'publish';
+        posts = posts.filter(p => p.id !== id);
+        saveData();
+        renderAll();
+        showToast('پست برای ویرایش آماده است', 'warning');
+        document.getElementById('section-posts').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function viewPost(id) {
+        const post = posts.find(p => p.id === id);
+        if (!post) return;
+        showToast(`عنوان: ${post.title} | بازدید: ${post.views || 0}`, 'info');
+    }
+
+    // ===== عملیات نظرات =====
+    function deleteComment(id) {
+        if (!confirm('حذف نظر؟')) return;
+        comments = comments.filter(c => c.id !== id);
+        saveData();
+        renderAll();
+        showToast('نظر حذف شد', 'success');
+    }
+
+    function deleteAllComments() {
+        if (!confirm('همه نظرات حذف می‌شوند. ادامه؟')) return;
+        comments = [];
+        saveData();
+        renderAll();
+        showToast('همه نظرات حذف شدند', 'warning');
+    }
+
+    // ===== عملیات کاربران =====
+    function deleteUser(username) {
+        if (!confirm(`کاربر ${username} حذف می‌شود. ادامه؟`)) return;
+        users = users.filter(u => u.username !== username);
+        saveData();
+        renderAll();
+        showToast('کاربر حذف شد', 'success');
+    }
+
+    // ===== عملیات دسته‌بندی =====
+    function deleteCategory(id) {
+        if (!confirm('حذف دسته‌بندی؟')) return;
+        categories = categories.filter(c => c.id !== id);
+        saveData();
+        renderAll();
+        showToast('دسته‌بندی حذف شد', 'success');
+    }
+
+    // ===== جستجوی پست‌ها =====
+    function searchPostsAdmin() {
+        const query = document.getElementById('postSearch').value.toLowerCase();
+        const tbody = document.getElementById('postsTableBody');
+        const filtered = posts.filter(p => p.title.toLowerCase().includes(query));
+        if (filtered.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">نتیجه‌ای یافت نشد</td></tr>';
+            return;
+        }
+        tbody.innerHTML = filtered.map(p => `
+            <tr>
+                <td><strong>${p.title}</strong></td>
+                <td><span class="status-badge active">${p.category || 'سایر'}</span></td>
+                <td>${p.date || 'نامشخص'}</td>
+                <td><span class="status-badge ${p.status === 'publish' ? 'active' : 'pending'}">${p.status === 'publish' ? 'منتشر شده' : 'پیش‌نویس'}</span></td>
+                <td>
+                    <div class="table-actions">
+                        <button class="btn-sm btn-primary" onclick="editPost('${p.id}')"><i class="fas fa-edit"></i></button>
+                        <button class="btn-sm btn-danger" onclick="deletePost('${p.id}')"><i class="fas fa-trash"></i></button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    // ===== فرم‌ها =====
+    // فرم افزودن پست
+    document.getElementById('postForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const title = document.getElementById('postTitle').value.trim();
+        const content = document.getElementById('postContent').value.trim();
+        const category = document.getElementById('postCategory').value;
+        const tags = document.getElementById('postTags').value.split(',').map(t => t.trim()).filter(Boolean);
+        const status = document.getElementById('postStatus').value;
+
+        if (!title || !content) {
+            showToast('عنوان و محتوا الزامی است', 'error');
+            return;
+        }
+
+        const files = document.getElementById('postFiles').files;
+        let fileData = [];
+        if (files.length) {
+            fileData = Array.from(files).map(f => ({
+                name: f.name,
+                type: f.type,
+                url: URL.createObjectURL(f)
+            }));
+        }
+
+        const newPost = {
+            id: generateId(),
+            title,
+            content,
+            category,
+            tags,
+            status,
+            date: new Date().toLocaleDateString('fa-IR'),
+            files: fileData,
+            views: 0
+        };
+        posts.unshift(newPost);
+        saveData();
+        renderAll();
+        document.getElementById('postForm').reset();
+        document.getElementById('filePreview').innerHTML = '';
+        showToast('پست با موفقیت منتشر شد', 'success');
+    });
+
+    // پیش‌نمایش فایل
+    document.getElementById('postFiles').addEventListener('change', function(e) {
+        const container = document.getElementById('filePreview');
+        container.innerHTML = '';
+        const files = e.target.files;
+        if (!files.length) return;
+        Array.from(files).forEach(f => {
+            const span = document.createElement('span');
+            span.className = 'file-preview-item';
+            const icon = f.type.startsWith('image/') ? 'fa-image' : 
+                        f.type.startsWith('video/') ? 'fa-video' :
+                        f.type.startsWith('audio/') ? 'fa-music' : 'fa-file';
+            span.innerHTML = `<i class="fas ${icon}"></i> ${f.name} (${(f.size/1024).toFixed(1)}KB)`;
+            container.appendChild(span);
+        });
+    });
+
+    // فرم نمایه
+    document.getElementById('profileForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        siteData.title = document.getElementById('siteTitleInput').value.trim() || 'ثارالله';
+        siteData.logo = document.getElementById('siteLogoInput').value.trim() || 'https://via.placeholder.com/70/8b0000/ffffff?text=ثار';
+        siteData.slogan = document.getElementById('siteSloganInput').value.trim();
+        siteData.description = document.getElementById('siteDescription').value.trim();
+        saveData();
+        renderAll();
+        showToast('نمایه با موفقیت بروزرسانی شد', 'success');
+    });
+
+    // فرم افزودن کاربر
+    document.getElementById('addUserForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const username = document.getElementById('newUsername').value.trim();
+        const password = document.getElementById('newPassword').value.trim();
+        const role = document.getElementById('newUserRole').value;
+        if (!username || !password) {
+            showToast('نام کاربری و رمز عبور الزامی است', 'error');
+            return;
+        }
+        if (users.some(u => u.username === username)) {
+            showToast('این نام کاربری قبلاً ثبت شده است', 'error');
+            return;
+        }
+        users.push({ username, password, role, created: new Date().toLocaleDateString('fa-IR') });
+        saveData();
+        renderAll();
+        closeModal('addUserModal');
+        document.getElementById('addUserForm').reset();
+        showToast('کاربر با موفقیت افزوده شد', 'success');
+    });
+
+    // فرم افزودن دسته
+    document.getElementById('addCategoryForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('newCategoryName').value.trim();
+        const icon = document.getElementById('newCategoryIcon').value;
+        if (!name) {
+            showToast('نام دسته‌بندی الزامی است', 'error');
+            return;
+        }
+        if (categories.some(c => c.name === name)) {
+            showToast('این دسته‌بندی قبلاً وجود دارد', 'error');
+            return;
+        }
+        categories.push({ id: generateId(), name, icon });
+        saveData();
+        renderAll();
+        closeModal('addCategoryModal');
+        document.getElementById('addCategoryForm').reset();
+        showToast('دسته‌بندی با موفقیت افزوده شد', 'success');
+    });
+
+    // ===== تنظیمات =====
+    document.getElementById('applySettingsBtn').addEventListener('click', function() {
+        settings.theme = document.getElementById('themeSelect').value;
+        settings.postsPerPage = parseInt(document.getElementById('postsPerPage').value) || 10;
+        settings.commentsEnabled = document.getElementById('commentsEnable').value === 'true';
+        isDark = settings.theme === 'dark';
+        saveData();
+        renderAll();
+        showToast('تنظیمات با موفقیت اعمال شد', 'success');
+    });
+
+    document.getElementById('toggleThemeBtn').addEventListener('click', function() {
+        isDark = !isDark;
+        settings.theme = isDark ? 'dark' : 'light';
+        saveData();
+        renderAll();
+        showToast(isDark ? 'تم دارک فعال شد' : 'تم روشن فعال شد', 'info');
+    });
+
+    // ===== پشتیبان‌گیری =====
+    function exportFullData() {
+        const data = {
+            posts,
+            comments,
+            users,
+            categories,
+            siteData,
+            settings,
+            totalViews,
+            exportedAt: new Date().toISOString()
+        };
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `tharallah_backup_${new Date().toISOString().slice(0,10)}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast('خروجی با موفقیت گرفته شد', 'success');
+    }
+
+    function importFullData() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json';
+        input.onchange = function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                try {
+                    const data = JSON.parse(ev.target.result);
+                    if (data.posts) posts = data.posts;
+                    if (data.comments) comments = data.comments;
+                    if (data.users) users = data.users;
+                    if (data.categories) categories = data.categories;
+                    if (data.siteData) siteData = data.siteData;
+                    if (data.settings) settings = data.settings;
+                    if (data.totalViews) totalViews = data.totalViews;
+                    isDark = settings.theme === 'dark';
+                    saveData();
+                    renderAll();
+                    showToast('داده‌ها با موفقیت وارد شدند', 'success');
+                } catch(err) {
+                    showToast('فایل نامعتبر است', 'error');
+                }
+            };
+            reader.readAsText(file);
+        };
+        input.click();
+    }
+
+    function resetAllData() {
+        if (!confirm('⚠️ همه داده‌ها پاک می‌شوند! این عمل غیرقابل بازگشت است. ادامه می‌دهید؟')) return;
+        if (!confirm('آیا مطمئن هستید؟')) return;
+        posts = [];
+        comments = [];
+        users = [{...DEFAULT_ADMIN, created: new Date().toLocaleDateString('fa-IR')}];
+        categories = [];
+        siteData = {
+            title: 'ثارالله',
+            logo: 'https://via.placeholder.com/70/8b0000/ffffff?text=ثار',
+            slogan: 'رسانه تولیدات محتوای دیجیتال مذهبی',
+            description: 'محتواهای اصیل و ارزشی در بستر دیجیتال'
+        };
+        settings = { theme: 'light', postsPerPage: 10, commentsEnabled: true };
+        totalViews = 0;
+        isDark = false;
+        saveData();
+        renderAll();
+        showToast('همه داده‌ها بازنشانی شدند', 'warning');
+    }
+
+    function clearCache() {
+        localStorage.clear();
+        location.reload();
+    }
+
+    // ===== نمایش بخش‌ها =====
+    function showSection(section) {
+        document.querySelectorAll('.section-content').forEach(el => el.classList.add('hidden'));
+        const target = document.getElementById(`section-${section}`);
+        if (target) target.classList.remove('hidden');
+
+        document.querySelectorAll('.sidebar-menu a').forEach(a => a.classList.remove('active'));
+        const link = document.querySelector(`.sidebar-menu a[data-section="${section}"]`);
+        if (link) link.classList.add('active');
+
+        const titles = {
+            dashboard: ['داشبورد', 'خلاصه وضعیت سایت'],
+            posts: ['مدیریت پست‌ها', 'افزودن و ویرایش پست‌ها'],
+            comments: ['مدیریت نظرات', 'بررسی و حذف نظرات'],
+            users: ['مدیریت کاربران', 'افزودن و مدیریت کاربران'],
+            media: ['مدیریت رسانه‌ها', 'مشاهده همه فایل‌های آپلود شده'],
+            categories: ['مدیریت دسته‌بندی‌ها', 'افزودن و مدیریت دسته‌بندی‌ها'],
+            profile: ['نمایه سایت', 'ویرایش اطلاعات سایت'],
+            settings: ['تنظیمات', 'تنظیمات پیشرفته سایت'],
+            backup: ['پشتیبان‌گیری', 'خروجی و ورودی داده‌ها']
+        };
+        const info = titles[section] || ['بخش', ''];
+        document.getElementById('pageTitle').textContent = info[0];
+        document.getElementById('pageSubtitle').textContent = info[1];
+    }
+
+    document.querySelectorAll('.sidebar-menu a[data-section]').forEach(a => {
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            showSection(this.dataset.section);
+        });
+    });
+
+    // ===== دکمه مشاهده سایت =====
+    document.getElementById('viewSiteBtn').addEventListener('click', function() {
+        window.location.href = 'index.html';
+    });
+
+    // ===== خروج =====
+    document.getElementById('logoutBtn').addEventListener('click', function() {
+        if (confirm('از پنل خارج می‌شوید؟')) {
+            localStorage.removeItem('saradminSession');
+            window.location.href = 'index.html';
+        }
+    });
+
+    // ===== بارگذاری اولیه =====
+    loadData();
+    renderAll();
+    showSection('dashboard');
+
+    console.log('🚀 پنل مدیریت ثارالله بارگذاری شد');
+    console.log(`📊 ${posts.length} پست، ${comments.length} نظر، ${users.length} کاربر`);
+</script>
+</body>
+</html>
