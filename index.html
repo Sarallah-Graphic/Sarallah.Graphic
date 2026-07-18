@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ثارالله - تولیدات رسانه‌ای مذهبی و انقلابی</title>
+    <meta name="description" content="ثارالله - پایگاه تولیدات رسانه‌ای مذهبی و انقلابی">
+    <meta name="keywords" content="ثارالله, رسانه مذهبی, انقلابی, محتوای اسلامی, تولیدات رسانه‌ای">
+    <style>
+        /* ========== RESET & BASE ========== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Tahoma', 'Arial', sans-serif; 
+            background: #f0f2f5; 
+            direction: rtl; 
+            padding-bottom: 80px;
+        }
+        a { text-decoration: none; }
+        
+        /* ========== HEADER ========== */
+        #header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 25px 20px 15px;
+            border-bottom: 4px solid #e94560;
+            text-align: center;
+        }
+        .title {
+            color: #fff;
+            font-size: 32px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+        .title span { color: #e94560; }
+        .subtitle {
+            color: #e94560;
+            font-size: 16px;
+            margin: 5px 0 15px;
+        }
+        .menu {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .menu a, .menu button {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 18px;
+            background: rgba(233, 69, 96, 0.25);
+            border-radius: 25px;
+            font-size: 14px;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .menu a:hover, .menu button:hover {
+            background: rgba(233, 69, 96, 0.5);
+            transform: translateY(-2px);
+        }
+        .menu .btn-admin {
+            background: #e94560;
+            color: #fff;
+            font-weight: bold;
+        }
+        .menu .btn-admin:hover {
+            background: #c73652;
+        }
+
+        /* ========== MAIN LAYOUT ========== */
+        .main-container {
+            max-width: 1200px;
+            margin: 25px auto;
+            padding: 0 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
+
+        /* ========== CONTENT (Posts) ========== */
+        .content-area {
+            flex: 2.5;
+            min-width: 300px;
+        }
+        .post {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+        .post:hover {
+            box-shadow: 0 5px 25px rgba(0,0,0,0.12);
+        }
+        .post-title {
+            color: #1a1a2e;
+            border-right: 5px solid #e94560;
+            padding-right: 15px;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        .post-title a {
+            color: #1a1a2e;
+            transition: 0.3s;
+        }
+        .post-title a:hover {
+            color: #e94560;
+        }
+        .post-text {
+            line-height: 2;
+            color: #444;
+            font-size: 15px;
+        }
+        .post-text img, .post-text iframe {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+        .post-text img {
+            border: 2px solid #eee;
+        }
+        .post-footer {
+            color: #888;
+            font-size: 13px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .post-footer span {
+            background: #f5f5f5;
+            padding: 3px 12px;
+            border-radius: 15px;
+        }
+        .post-footer .comment-count {
+            background: #e94560;
+            color: #fff;
+        }
+
+        /* ========== PAGINATION ========== */
+        .pagination {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .pagination a {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 10px 25px;
+            border-radius: 25px;
+            margin: 0 5px;
+            display: inline-block;
+            transition: 0.3s;
+        }
+        .pagination a:hover {
+            background: #e94560;
+            transform: scale(1.05);
+        }
+        .pagination .sep {
+            color: #1a1a2e;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+
+        /* ========== SIDEBAR ========== */
+        .sidebar {
+            flex: 1;
+            min-width: 250px;
+        }
+        .widget {
+            background: #fff;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        .widget-title {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 12px 18px;
+            margin: 0;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .widget-title i { margin-left: 8px; }
+        .widget-body {
+            padding: 15px;
+        }
+        .widget-body .link-item {
+            padding: 6px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .widget-body .link-item:last-child {
+            border-bottom: none;
+        }
+        .widget-body .link-item a {
+            color: #1a1a2e;
+            transition: 0.3s;
+            display: block;
+        }
+        .widget-body .link-item a:hover {
+            color: #e94560;
+            padding-right: 5px;
+        }
+        .widget-body .profile-img {
+            display: block;
+            margin: 0 auto 15px;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 3px solid #e94560;
+            object-fit: cover;
+        }
+        .widget-body .about-text {
+            font-size: 14px;
+            line-height: 1.9;
+            color: #555;
+            text-align: center;
+        }
+        .widget-body .stats {
+            text-align: center;
+            font-size: 14px;
+            line-height: 2;
+            color: #444;
+        }
+        .widget-body .stats strong {
+            color: #e94560;
+        }
+        .widget-body .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .widget-body .tag-cloud a {
+            background: #f0f2f5;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 13px;
+            color: #1a1a2e;
+            transition: 0.3s;
+        }
+        .widget-body .tag-cloud a:hover {
+            background: #e94560;
+            color: #fff;
+        }
+
+        /* ========== FOOTER ========== */
+        #footer {
+            background: #1a1a2e;
+            color: #ccc;
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 30px;
+            border-top: 3px solid #e94560;
+        }
+        #footer .footer-links a {
+            color: #e94560;
+            margin: 0 12px;
+            font-size: 14px;
+        }
+        #footer .footer-links a:hover {
+            text-decoration: underline;
+        }
+        #footer .copy {
+            margin-top: 12px;
+            font-size: 13px;
+            color: #888;
+        }
+
+        /* ========== ADMIN PANEL (Overlay) ========== */
+        .admin-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        .admin-overlay.active {
+            display: flex;
+        }
+        .admin-panel {
+            background: #1a1a2e;
+            border-radius: 15px;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            color: #fff;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        .admin-panel .close-btn {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            color: #e94560;
+            font-size: 28px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        .admin-panel .close-btn:hover {
+            transform: rotate(90deg);
+        }
+        .admin-panel h2 {
+            text-align: center;
+            color: #e94560;
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+        .admin-panel h2 i { margin-left: 10px; }
+        .admin-panel label {
+            display: block;
+            margin: 12px 0 5px;
+            font-size: 14px;
+            color: #ccc;
+        }
+        .admin-panel input, .admin-panel textarea, .admin-panel select {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background: #2a2a4a;
+            color: #fff;
+            font-size: 14px;
+            font-family: inherit;
+            direction: rtl;
+        }
+        .admin-panel input:focus, .admin-panel textarea:focus {
+            border-color: #e94560;
+            outline: none;
+        }
+        .admin-panel textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .admin-panel .btn-submit {
+            background: #e94560;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+        .admin-panel .btn-submit:hover {
+            background: #c73652;
+            transform: scale(1.02);
+        }
+        .admin-panel .btn-danger {
+            background: #cc0000;
+        }
+        .admin-panel .btn-danger:hover {
+            background: #aa0000;
+        }
+        .admin-panel .btn-success {
+            background: #2ecc71;
+        }
+        .admin-panel .btn-success:hover {
+            background: #27ae60;
+        }
+        .admin-panel .form-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .admin-panel .form-row .half {
+            flex: 1;
+            min-width: 120px;
+        }
+        .admin-panel .login-error {
+            background: #cc0000;
+            color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 15px;
+            display: none;
+        }
+        .admin-panel .login-error.show {
+            display: block;
+        }
+
+        /* ========== ADMIN DASHBOARD (inside panel) ========== */
+        .admin-dashboard {
+            display: none;
+        }
+        .admin-dashboard.active {
+            display: block;
+        }
+        .admin-login-form {
+            display: block;
+        }
+        .admin-login-form.hidden {
+            display: none;
+        }
+        .admin-stats {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        .admin-stats .stat-box {
+            background: #2a2a4a;
+            padding: 12px 18px;
+            border-radius: 8px;
+            flex: 1;
+            min-width: 80px;
+            text-align: center;
+        }
+        .admin-stats .stat-box .num {
+            font-size: 22px;
+            font-weight: bold;
+            color: #e94560;
+        }
+        .admin-stats .stat-box .label {
+            font-size: 12px;
+            color: #aaa;
+        }
+        .admin-post-list {
+            margin: 15px 0;
+        }
+        .admin-post-item {
+            background: #2a2a4a;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .admin-post-item .title {
+            font-size: 14px;
+            flex: 1;
+        }
+        .admin-post-item .actions button {
+            padding: 4px 12px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            margin: 0 3px;
+        }
+        .admin-post-item .actions .edit-btn {
+            background: #2ecc71;
+            color: #fff;
+        }
+        .admin-post-item .actions .delete-btn {
+            background: #cc0000;
+            color: #fff;
+        }
+        .admin-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .admin-tabs button {
+            background: #2a2a4a;
+            color: #ccc;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .admin-tabs button.active {
+            background: #e94560;
+            color: #fff;
+        }
+        .admin-tabs button:hover {
+            background: #e94560;
+            color: #fff;
+        }
+        .admin-tab-content {
+            display: none;
+        }
+        .admin-tab-content.active {
+            display: block;
+        }
+        .admin-panel .logout-btn {
+            background: #555;
+            color: #fff;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+        .admin-panel .logout-btn:hover {
+            background: #777;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .title { font-size: 24px; }
+            .menu a, .menu button { padding: 6px 12px; font-size: 12px; }
+            .post-title { font-size: 18px; }
+            .admin-panel { padding: 20px; width: 95%; }
+        }
+        @media (max-width: 480px) {
+            .main-container { padding: 0 8px; }
+            .post { padding: 15px; }
+            .post-footer { font-size: 11px; gap: 8px; }
+            .admin-stats .stat-box { min-width: 60px; padding: 8px; }
+        }
+
+        /* ========== TOAST NOTIFICATION ========== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #1a1a2e;
+            color: #fff;
+            padding: 15px 25px;
+            border-radius: 10px;
+            border-right: 5px solid #e94560;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 99999;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: 0.5s;
+            font-size: 14px;
+        }
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .toast.success { border-right-color: #2ecc71; }
+        .toast.error { border-right-color: #cc0000; }
+        .toast.warning { border-right-color: #f39c12; }
+    </style>
+</head>
+<body>
+
+    <!-- ========== TOAST ========== -->
+    <div id="toast" class="toast"></div>
+
+    <!-- ========== HEADER ========== -->
+    <div id="header">
+        <h1 class="title">🌹 <span>ثار</span>الله</h1>
+        <p class="subtitle">تولیدات رسانه‌ای مذهبی و انقلابی</p>
+        <div class="menu">
+            <a href="#">صفحه اصلی</a>
+            <a href="#posts">عناوین مطالب</a>
+            <a href="#about">درباره ما</a>
+            <a href="#contact">تماس با ما</a>
+            <a href="#feed">Feed</a>
+            <button class="btn-admin" onclick="openAdminPanel()">🔐 مدیریت</button>
+        </div>
+    </div>
+
+    <!-- ========== MAIN ========== -->
+    <div class="main-container">
+
+        <!-- ===== CONTENT ===== -->
+        <div class="content-area" id="posts">
+
+            <!-- Post 1 -->
+            <div class="post" data-id="1">
+                <h2 class="post-title"><a href="#">شهدای مقاومت الگوی نسل جوان</a></h2>
+                <div class="post-text">
+                    <p>مقاومت و ایستادگی در برابر ظلم، از مهم‌ترین آموزه‌های مکتب حسینی است. شهدای مقاومت با الگوگیری از سیدالشهدا(ع)، مسیر سعادت را برای نسل جوان ترسیم کردند. امروز بیش از هر زمان دیگری نیازمند تبیین فرهنگ ایثار و شهادت در فضای رسانه‌ای هستیم.</p>
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400' viewBox='0 0 800 400'%3E%3Crect width='800' height='400' fill='%231a1a2e'/%3E%3Ctext x='400' y='200' font-size='28' fill='%23e94560' text-anchor='middle' font-family='Tahoma'%3E🌹 شهدای مقاومت 🌹%3C/text%3E%3C/svg%3E" alt="شهدای مقاومت">
+                    <p>رسانه‌های انقلابی وظیفه دارند با تولید محتوای فاخر، نقش شهدا را در پیشرفت کشور تبیین کنند. شهید سلیمانی، شهید همت، شهید باکری و دیگر شهدای والامقام، هر کدام دانشگاهی از درس‌های عشق و مقاومت هستند.</p>
+                </div>
+                <div class="post-footer">
+                    <span>📅 ۱۹ تیر ۱۴۰۴</span>
+                    <span>⏰ ۱۴:۳۰</span>
+                    <span>✍️ مدیر ثارالله</span>
+                    <span class="comment-count">💬 ۱۲ نظر</span>
+                </div>
+            </div>
+
+            <!-- Post 2 -->
+            <div class="post" data-id="2">
+                <h2 class="post-title"><a href="#">بیانیه گام دوم انقلاب و رسانه‌های انقلابی</a></h2>
+                <div class="post-text">
+                    <p>رسانه‌های انقلابی با تبیین بیانیه گام دوم انقلاب، نقش مهمی در تحقق تمدن نوین اسلامی ایفا می‌کنند. تولید محتوای جهاد تبیین، رسالت اصلی این رسانه‌هاست و باید با استفاده از ابزارهای نوین، پیام انقلاب را به گوش جهانیان برسانند.</p>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+                    <p>در این ویدئو به بررسی نقش رسانه در تحقق بیانیه گام دوم انقلاب پرداخته شده است. مسئولیت اجتماعی رسانه‌ها در قبال آرمان‌های انقلاب، موضوعی است که کمتر به آن پرداخته شده است.</p>
+                </div>
+                <div class="post-footer">
+                    <span>📅 ۱۸ تیر ۱۴۰۴</span>
+                    <span>⏰ ۱۰:۱۵</span>
+                    <span>✍️ کارشناس رسانه</span>
+                    <span class="comment-count">💬 ۸ نظر</span>
+                </div>
+            </div>
+
+            <!-- Post 3 -->
+            <div class="post" data-id="3">
+                <h2 class="post-title"><a href="#">نقش مساجد در تحقق تمدن اسلامی</a></h2>
+                <div class="post-text">
+                    <p>مساجد به عنوان سنگرهای معنوی و پایگاه‌های فرهنگی، نقش بی‌بدیلی در شکل‌گیری تمدن اسلامی دارند. از صدر اسلام تا امروز، مساجد همواره کانون تحولات فرهنگی، سیاسی و اجتماعی بوده‌اند.</p>
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400' viewBox='0 0 800 400'%3E%3Crect width='800' height='400' fill='%230f3460'/%3E%3Ctext x='400' y='200' font-size='28' fill='%23e94560' text-anchor='middle' font-family='Tahoma'%3E🕌 مسجد کانون تمدن اسلامی %3C/text%3E%3C/svg%3E" alt="مسجد">
+                    <p>امروز با گسترش فضای مجازی، مساجد می‌توانند با بهره‌گیری از رسانه‌های نوین، پیام اسلام ناب را به دورترین نقاط جهان برسانند. تولید محتوای مسجد محور، یکی از راهبردهای اصلی رسانه ثارالله است.</p>
+                </div>
+                <div class="post-footer">
+                    <span>📅 ۱۷ تیر ۱۴۰۴</span>
+                    <span>⏰ ۱۶:۴۵</span>
+                    <span>✍️ پژوهشگر اسلامی</span>
+                    <span class="comment-count">💬 ۵ نظر</span>
+                </div>
+            </div>
+
+            <!-- ===== PAGINATION ===== -->
+            <div class="pagination">
+                <a href="#">◀ مطالب جدیدتر</a>
+                <span class="sep">✦</span>
+                <a href="#">مطالب قدیمی‌تر ▶</a>
+            </div>
+        </div>
+
+        <!-- ===== SIDEBAR ===== -->
+        <div class="sidebar">
+
+            <!-- About Widget -->
+            <div class="widget" id="about">
+                <div class="widget-title">📖 درباره پایگاه</div>
+                <div class="widget-body">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%231a1a2e'/%3E%3Ctext x='100' y='110' font-size='40' fill='%23e94560' text-anchor='middle' font-family='Tahoma'%3E🌹%3C/text%3E%3C/svg%3E" alt="ثارالله" class="profile-img">
+                    <p class="about-text">
+                        <strong>پایگاه ثارالله</strong><br>
+                        تولیدکننده محتوای مذهبی و انقلابی در فضای مجازی.<br>
+                        با هدف تبیین معارف اسلامی و نشر فرهنگ ایثار و شهادت
+                    </p>
+                    <div style="text-align:center; margin-top:10px; font-size:13px; color:#888;">
+                        <span>📧 info@tharallah.ir</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Authors Widget -->
+            <div class="widget">
+                <div class="widget-title">🖋️ نویسندگان</div>
+                <div class="widget-body">
+                    <div class="link-item"><a href="#">مدیر ثارالله</a></div>
+                    <div class="link-item"><a href="#">کارشناس رسانه</a></div>
+                    <div class="link-item"><a href="#">پژوهشگر اسلامی</a></div>
+                    <div class="link-item"><a href="#">کارشناس تاریخ اسلام</a></div>
+                </div>
+            </div>
+
+            <!-- Daily Links -->
+            <div class="widget">
+                <div class="widget-title">🔗 پیوندهای روزانه</div>
+                <div class="widget-body">
+                    <div class="link-item"><a href="#">📱 کانال ایتا ثارالله</a></div>
+                    <div class="link-item"><a href="#">📸 اینستاگرام ثارالله</a></div>
+                    <div class="link-item"><a href="#">🎥 آپارات ثارالله</a></div>
+                    <div class="link-item"><a href="#">📝 وبلاگ ثارالله</a></div>
+                </div>
+            </div>
+
+            <!-- Monthly Archive -->
+            <div class="widget">
+                <div class="widget-title">📅 آرشیو ماهانه</div>
+                <div class="widget-body">
+                    <div class="link-item"><a href="#">تیر ۱۴۰۴</a></div>
+                    <div class="link-item"><a href="#">خرداد ۱۴۰۴</a></div>
+                    <div class="link-item"><a href="#">اردیبهشت ۱۴۰۴</a></div>
+                    <div class="link-item"><a href="#">فروردین ۱۴۰۴</a></div>
+                </div>
+            </div>
+
+            <!-- Categories -->
+            <div class="widget">
+                <div class="widget-title">🏷️ آرشیو موضوعی</div>
+                <div class="widget-body">
+                    <div class="link-item"><a href="#">مذهبی</a></div>
+                    <div class="link-item"><a href="#">انقلابی</a></div>
+                    <div class="link-item"><a href="#">فرهنگی</a></div>
+                    <div class="link-item"><a href="#">تاریخی</a></div>
+                    <div class="link-item"><a href="#">اجتماعی</a></div>
+                </div>
+            </div>
+
+            <!-- Tag Cloud -->
+            <div class="widget">
+                <div class="widget-title">📌 برچسب‌ها</div>
+                <div class="widget-body">
+                    <div class="tag-cloud">
+                        <a href="#">شهادت</a>
+                        <a href="#">مقاومت</a>
+                        <a href="#">انقلاب</a>
+                        <a href="#">حسین(ع)</a>
+                        <a href="#">مسجد</a>
+                        <a href="#">جهاد تبیین</a>
+                        <a href="#">رسانه</a>
+                        <a href="#">تمدن</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics -->
+            <div class="widget">
+                <div class="widget-title">📊 آمار بازدید</div>
+                <div class="widget-body">
+                    <div class="stats">
+                        <div><strong>۱,۲۴۵</strong> بازدید امروز</div>
+                        <div><strong>۹۸۷</strong> بازدید دیروز</div>
+                        <div><strong>۱۲۴,۵۶۷</strong> کل بازدیدها</div>
+                        <div><strong>۴۵</strong> آنلاین</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Links -->
+            <div class="widget">
+                <div class="widget-title">🔗 پیوندهای مفید</div>
+                <div class="widget-body">
+                    <div class="link-item"><a href="#">پایگاه اطلاع‌رسانی رهبری</a></div>
+                    <div class="link-item"><a href="#">حوزه نت</a></div>
+                    <div class="link-item"><a href="#">خبرگزاری تسنیم</a></div>
+                    <div class="link-item"><a href="#">خبرگزاری مهر</a></div>
+                    <div class="link-item"><a href="#">پایگاه شهید سلیمانی</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <div id="footer" id="contact">
+        <div class="footer-links">
+            <a href="#">درباره ما</a>
+            <a href="#">تماس با ما</a>
+            <a href="#">قوانین</a>
+            <a href="#">حریم خصوصی</a>
+            <a href="#">تبلیغات</a>
+        </div>
+        <div class="copy">
+            🌹 پایگاه تولیدات رسانه‌ای مذهبی و انقلابی ثارالله 🌹<br>
+            تمامی حقوق محفوظ است | طراحی و توسعه توسط تیم ثارالله
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- ========== ADMIN PANEL OVERLAY ========== -->
+    <!-- ============================================================ -->
+    <div class="admin-overlay" id="adminOverlay">
+        <div class="admin-panel" id="adminPanel">
+            <button class="close-btn" onclick="closeAdminPanel()">✕</button>
+
+            <!-- ===== LOGIN FORM ===== -->
+            <div id="loginForm" class="admin-login-form">
+                <h2>🔐 ورود به مدیریت</h2>
+                <div id="loginError" class="login-error">❌ نام کاربری یا رمز عبور اشتباه است!</div>
+                <form id="adminLogin" onsubmit="return handleLogin(event)">
+                    <label>👤 نام کاربری</label>
+                    <input type="text" id="loginUsername" placeholder="نام کاربری را وارد کنید" required>
+                    <label>🔑 رمز عبور</label>
+                    <input type="password" id="loginPassword" placeholder="رمز عبور را وارد کنید" required>
+                    <button type="submit" class="btn-submit">ورود به پنل مدیریت</button>
+                    <div style="text-align:center; margin-top:15px; font-size:12px; color:#888;">
+                        کاربر پیش‌فرض: <strong style="color:#e94560;">admin</strong> | رمز: <strong style="color:#e94560;">tharallah1404</strong>
+                    </div>
+                </form>
+            </div>
+
+            <!-- ===== DASHBOARD ===== -->
+            <div id="dashboard" class="admin-dashboard">
+                <h2>📊 داشبورد مدیریت</h2>
+
+                <!-- Stats -->
+                <div class="admin-stats">
+                    <div class="stat-box"><div class="num" id="postCount">۳</div><div class="label">مطالب</div></div>
+                    <div class="stat-box"><div class="num">۱۲</div><div class="label">تصاویر</div></div>
+                    <div class="stat-box"><div class="num">۸</div><div class="label">ویدئوها</div></div>
+                    <div class="stat-box"><div class="num">۱,۲۴۵</div><div class="label">بازدید امروز</div></div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="admin-tabs">
+                    <button class="active" onclick="switchTab('tabPosts', this)">📝 مطالب</button>
+                    <button onclick="switchTab('tabNewPost', this)">➕ مطلب جدید</button>
+                    <button onclick="switchTab('tabMedia', this)">🖼️ رسانه</button>
+                    <button onclick="switchTab('tabSettings', this)">⚙️ تنظیمات</button>
+                </div>
+
+                <!-- Tab: Posts -->
+                <div id="tabPosts" class="admin-tab-content active">
+                    <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:10px;">
+                        <span style="color:#aaa;">مدیریت مطالب وبلاگ</span>
+                        <button onclick="switchTab('tabNewPost', document.querySelector('.admin-tabs button:nth-child(2)'))" class="btn-submit" style="width:auto; padding:6px 20px; font-size:13px;">➕ افزودن مطلب</button>
+                    </div>
+                    <div class="admin-post-list" id="adminPostList">
+                        <!-- Posts will be rendered by JS -->
+                    </div>
+                </div>
+
+                <!-- Tab: New Post -->
+                <div id="tabNewPost" class="admin-tab-content">
+                    <h3 style="color:#e94560; margin-bottom:15px;">✍️ نوشتن مطلب جدید</h3>
+                    <form id="newPostForm" onsubmit="return handleNewPost(event)">
+                        <label>عنوان مطلب</label>
+                        <input type="text" id="newPostTitle" placeholder="عنوان را وارد کنید" required>
+                        <label>متن مطلب</label>
+                        <textarea id="newPostContent" placeholder="متن مطلب را بنویسید..." required></textarea>
+                        <label>نویسنده</label>
+                        <input type="text" id="newPostAuthor" placeholder="نام نویسنده" value="مدیر ثارالله">
+                        <div class="form-row">
+                            <div class="half">
+                                <label>تاریخ</label>
+                                <input type="text" id="newPostDate" placeholder="مثلاً ۱۹ تیر ۱۴۰۴">
+                            </div>
+                            <div class="half">
+                                <label>زمان</label>
+                                <input type="text" id="newPostTime" placeholder="مثلاً ۱۴:۳۰">
+                            </div>
+                        </div>
+                        <label>دسته‌بندی</label>
+                        <select id="newPostCategory">
+                            <option value="مذهبی">مذهبی</option>
+                            <option value="انقلابی" selected>انقلابی</option>
+                            <option value="فرهنگی">فرهنگی</option>
+                            <option value="تاریخی">تاریخی</option>
+                            <option value="اجتماعی">اجتماعی</option>
+                        </select>
+                        <button type="submit" class="btn-submit">📤 انتشار مطلب</button>
+                    </form>
+                </div>
+
+                <!-- Tab: Media -->
+                <div id="tabMedia" class="admin-tab-content">
+                    <h3 style="color:#e94560; margin-bottom:15px;">🖼️ مدیریت رسانه</h3>
+                    <p style="color:#aaa; margin-bottom:15px;">در این بخش می‌توانید تصاویر و ویدئوهای سایت را مدیریت کنید.</p>
+                    <form onsubmit="return handleMediaUpload(event)">
+                        <label>آپلود تصویر</label>
+                        <input type="file" accept="image/*" id="mediaImage">
+                        <label>عنوان</label>
+                        <input type="text" id="mediaTitle" placeholder="عنوان تصویر">
+                        <button type="submit" class="btn-submit" style="margin-top:10px;">⬆ آپلود</button>
+                    </form>
+                    <div style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap;" id="mediaGallery">
+                        <div style="background:#2a2a4a; padding:10px; border-radius:8px; text-align:center; width:100px;">
+                            <div style="font-size:40px;">🖼️</div>
+                            <div style="font-size:11px; color:#aaa;">تصویر نمونه</div>
+                        </div>
+                        <div style="background:#2a2a4a; padding:10px; border-radius:8px; text-align:center; width:100px;">
+                            <div style="font-size:40px;">🎬</div>
+                            <div style="font-size:11px; color:#aaa;">ویدئو نمونه</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Settings -->
+                <div id="tabSettings" class="admin-tab-content">
+                    <h3 style="color:#e94560; margin-bottom:15px;">⚙️ تنظیمات سایت</h3>
+                    <form onsubmit="return handleSettingsSave(event)">
+                        <label>عنوان سایت</label>
+                        <input type="text" id="settingsTitle" value="ثارالله">
+                        <label>زیرعنوان</label>
+                        <input type="text" id="settingsSubtitle" value="تولیدات رسانه‌ای مذهبی و انقلابی">
+                        <label>توضیحات</label>
+                        <textarea id="settingsDesc">پایگاه ثارالله، تولیدکننده محتوای مذهبی و انقلابی در فضای مجازی.</textarea>
+                        <label>ایمیل پشتیبانی</label>
+                        <input type="email" id="settingsEmail" value="info@tharallah.ir">
+                        <button type="submit" class="btn-submit">💾 ذخیره تنظیمات</button>
+                    </form>
+                </div>
+
+                <!-- Logout -->
+                <div style="text-align:center; margin-top:20px; border-top:1px solid #333; padding-top:15px;">
+                    <button onclick="handleLogout()" class="logout-btn">🚪 خروج از مدیریت</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // ========== DATA ==========
+        // ============================================================
+        let posts = [
+            {
+                id: 1,
+                title: 'شهدای مقاومت الگوی نسل جوان',
+                content: 'مقاومت و ایستادگی در برابر ظلم، از مهم‌ترین آموزه‌های مکتب حسینی است. شهدای مقاومت با الگوگیری از سیدالشهدا(ع)، مسیر سعادت را برای نسل جوان ترسیم کردند. امروز بیش از هر زمان دیگری نیازمند تبیین فرهنگ ایثار و شهادت در فضای رسانه‌ای هستیم.\n\nرسانه‌های انقلابی وظیفه دارند با تولید محتوای فاخر، نقش شهدا را در پیشرفت کشور تبیین کنند. شهید سلیمانی، شهید همت، شهید باکری و دیگر شهدای والامقام، هر کدام دانشگاهی از درس‌های عشق و مقاومت هستند.',
+                author: 'مدیر ثارالله',
+                date: '۱۹ تیر ۱۴۰۴',
+                time: '۱۴:۳۰',
+                category: 'مذهبی',
+                comments: 12
+            },
+            {
+                id: 2,
+                title: 'بیانیه گام دوم انقلاب و رسانه‌های انقلابی',
+                content: 'رسانه‌های انقلابی با تبیین بیانیه گام دوم انقلاب، نقش مهمی در تحقق تمدن نوین اسلامی ایفا می‌کنند. تولید محتوای جهاد تبیین، رسالت اصلی این رسانه‌هاست و باید با استفاده از ابزارهای نوین، پیام انقلاب را به گوش جهانیان برسانند.\n\nدر این ویدئو به بررسی نقش رسانه در تحقق بیانیه گام دوم انقلاب پرداخته شده است. مسئولیت اجتماعی رسانه‌ها در قبال آرمان‌های انقلاب، موضوعی است که کمتر به آن پرداخته شده است.',
+                author: 'کارشناس رسانه',
+                date: '۱۸ تیر ۱۴۰۴',
+                time: '۱۰:۱۵',
+                category: 'انقلابی',
+                comments: 8
+            },
+            {
+                id: 3,
+                title: 'نقش مساجد در تحقق تمدن اسلامی',
+                content: 'مساجد به عنوان سنگرهای معنوی و پایگاه‌های فرهنگی، نقش بی‌بدیلی در شکل‌گیری تمدن اسلامی دارند. از صدر اسلام تا امروز، مساجد همواره کانون تحولات فرهنگی، سیاسی و اجتماعی بوده‌اند.\n\nامروز با گسترش فضای مجازی، مساجد می‌توانند با بهره‌گیری از رسانه‌های نوین، پیام اسلام ناب را به دورترین نقاط جهان برسانند. تولید محتوای مسجد محور، یکی از راهبردهای اصلی رسانه ثارالله است.',
+                author: 'پژوهشگر اسلامی',
+                date: '۱۷ تیر ۱۴۰۴',
+                time: '۱۶:۴۵',
+                category: 'فرهنگی',
+                comments: 5
+            }
+        ];
+
+        let nextId = 4;
+        let isLoggedIn = false;
+
+        // ============================================================
+        // ========== ADMIN FUNCTIONS ==========
+        // ============================================================
+
+        function openAdminPanel() {
+            document.getElementById('adminOverlay').classList.add('active');
+            document.getElementById('loginError').classList.remove('show');
+            if (isLoggedIn) {
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('dashboard').classList.add('active');
+                renderAdminPosts();
+            } else {
+                document.getElementById('loginForm').classList.remove('hidden');
+                document.getElementById('dashboard').classList.remove('active');
+            }
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('adminOverlay').classList.remove('active');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            if (username === 'admin' && password === 'tharallah1404') {
+                isLoggedIn = true;
+                document.getElementById('loginError').classList.remove('show');
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('dashboard').classList.add('active');
+                renderAdminPosts();
+                showToast('✅ ورود موفق! خوش آمدید مدیر', 'success');
+                return false;
+            } else {
+                document.getElementById('loginError').classList.add('show');
+                showToast('❌ نام کاربری یا رمز عبور اشتباه است!', 'error');
+                return false;
+            }
+        }
+
+        function handleLogout() {
+            isLoggedIn = false;
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('dashboard').classList.remove('active');
+            document.getElementById('loginUsername').value = '';
+            document.getElementById('loginPassword').value = '';
+            showToast('🚪 خروج با موفقیت انجام شد', 'warning');
+        }
+
+        function renderAdminPosts() {
+            const container = document.getElementById('adminPostList');
+            if (!container) return;
+            container.innerHTML = posts.map(p => `
+                <div class="admin-post-item">
+                    <span class="title">${p.title}</span>
+                    <span style="font-size:12px; color:#aaa;">${p.date} | ${p.author}</span>
+                    <div class="actions">
+                        <button class="edit-btn" onclick="editPost(${p.id})">✏️</button>
+                        <button class="delete-btn" onclick="deletePost(${p.id})">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('postCount').textContent = posts.length;
+        }
+
+        function deletePost(id) {
+            if (!confirm('آیا از حذف این مطلب مطمئن هستید؟')) return;
+            posts = posts.filter(p => p.id !== id);
+            renderAdminPosts();
+            renderMainPosts();
+            showToast('🗑️ مطلب با موفقیت حذف شد', 'warning');
+        }
+
+        function editPost(id) {
+            const post = posts.find(p => p.id === id);
+            if (!post) return;
+            document.getElementById('newPostTitle').value = post.title;
+            document.getElementById('newPostContent').value = post.content;
+            document.getElementById('newPostAuthor').value = post.author;
+            document.getElementById('newPostDate').value = post.date;
+            document.getElementById('newPostTime').value = post.time;
+            document.getElementById('newPostCategory').value = post.category;
+            // Switch to new post tab
+            switchTab('tabNewPost', document.querySelector('.admin-tabs button:nth-child(2)'));
+            // Remove the post so we can re-add it
+            posts = posts.filter(p => p.id !== id);
+            renderAdminPosts();
+            renderMainPosts();
+            showToast('✏️ مطلب برای ویرایش آماده شد', 'success');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function handleNewPost(e) {
+            e.preventDefault();
+            const title = document.getElementById('newPostTitle').value.trim();
+            const content = document.getElementById('newPostContent').value.trim();
+            const author = document.getElementById('newPostAuthor').value.trim() || 'مدیر ثارالله';
+            const date = document.getElementById('newPostDate').value.trim() || new Date().toLocaleDateString('fa-IR');
+            const time = document.getElementById('newPostTime').value.trim() || new Date().toLocaleTimeString('fa-IR', {hour:'2-digit', minute:'2-digit'});
+            const category = document.getElementById('newPostCategory').value;
+
+            if (!title || !content) {
+                showToast('❌ لطفاً عنوان و متن مطلب را وارد کنید!', 'error');
+                return false;
+            }
+
+            const newPost = {
+                id: nextId++,
+                title,
+                content,
+                author,
+                date,
+                time,
+                category,
+                comments: 0
+            };
+
+            posts.push(newPost);
+            renderAdminPosts();
+            renderMainPosts();
+            document.getElementById('newPostForm').reset();
+            showToast('✅ مطلب جدید با موفقیت منتشر شد!', 'success');
+
+            // Switch to posts tab
+            switchTab('tabPosts', document.querySelector('.admin-tabs button:first-child'));
+            return false;
+        }
+
+        function handleMediaUpload(e) {
+            e.preventDefault();
+            const file = document.getElementById('mediaImage').files[0];
+            if (!file) {
+                showToast('❌ لطفاً یک تصویر انتخاب کنید!', 'error');
+                return false;
+            }
+            showToast('✅ تصویر با موفقیت آپلود شد (شبیه‌سازی)', 'success');
+            document.getElementById('mediaImage').value = '';
+            document.getElementById('mediaTitle').value = '';
+            return false;
+        }
+
+        function handleSettingsSave(e) {
+            e.preventDefault();
+            showToast('✅ تنظیمات با موفقیت ذخیره شد!', 'success');
+            // Update header
+            const title = document.getElementById('settingsTitle').value;
+            const subtitle = document.getElementById('settingsSubtitle').value;
+            document.querySelector('.title').innerHTML = `🌹 <span>${title.split('الله')[0] || ''}</span>الله`;
+            document.querySelector('.subtitle').textContent = subtitle;
+            return false;
+        }
+
+        function switchTab(tabId, btn) {
+            // Hide all tabs
+            document.querySelectorAll('.admin-tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.admin-tabs button').forEach(b => b.classList.remove('active'));
+            // Show selected
+            document.getElementById(tabId).classList.add('active');
+            if (btn) btn.classList.add('active');
+        }
+
+        // ============================================================
+        // ========== RENDER MAIN POSTS ==========
+        // ============================================================
+        function renderMainPosts() {
+            const container = document.querySelector('.content-area');
+            const postsHtml = posts.map(p => `
+                <div class="post" data-id="${p.id}">
+                    <h2 class="post-title"><a href="#">${p.title}</a></h2>
+                    <div class="post-text">
+                        <p>${p.content.replace(/\n/g, '</p><p>')}</p>
+                    </div>
+                    <div class="post-footer">
+                        <span>📅 ${p.date}</span>
+                        <span>⏰ ${p.time}</span>
+                        <span>✍️ ${p.author}</span>
+                        <span class="comment-count">💬 ${p.comments} نظر</span>
+                        <span style="background:#0f3460; color:#fff;">🏷️ ${p.category}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            const pagination = `
+                <div class="pagination">
+                    <a href="#">◀ مطالب جدیدتر</a>
+                    <span class="sep">✦</span>
+                    <a href="#">مطالب قدیمی‌تر ▶</a>
+                </div>
+            `;
+
+            // Keep only the content area and replace inner
+            container.innerHTML = postsHtml + pagination;
+        }
+
+        // ============================================================
+        // ========== TOAST ==========
+        // ============================================================
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast ' + type;
+            toast.classList.add('show');
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3500);
+        }
+
+        // ============================================================
+        // ========== KEYBOARD SHORTCUTS ==========
+        // ============================================================
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                if (document.getElementById('adminOverlay').classList.contains('active')) {
+                    closeAdminPanel();
+                }
+            }
+        });
+
+        // ============================================================
+        // ========== INIT ==========
+        // ============================================================
+        renderMainPosts();
+
+        // Auto-show admin panel if logged in (for demo, we don't auto-login)
+        // You can uncomment below to auto-open admin on page load (for testing)
+        // setTimeout(openAdminPanel, 500);
+    </script>
+
+</body>
+</html>
