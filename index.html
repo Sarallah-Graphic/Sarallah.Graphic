@@ -1,0 +1,214 @@
+<?php
+// ---------------------------------------------------------
+// 1. تنظیمات پایه و اتصال به دیتابیس SQLite
+// ---------------------------------------------------------
+$db_file = 'sarallah.db';
+$db = new PDO('sqlite:' . $db_file);
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+// ایجاد جداول اگر وجود ندارند
+$db->exec("CREATE TABLE IF NOT EXISTS services (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT,
+    description TEXT
+)");
+
+$db->exec("CREATE TABLE IF NOT EXISTS portfolios (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT,
+    image TEXT,
+    category TEXT
+)");
+
+$db->exec("CREATE TABLE IF NOT EXISTS orders (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    client_name TEXT,
+    phone TEXT,
+    description TEXT,
+    status TEXT DEFAULT 'pending'
+)");
+
+// ---------------------------------------------------------
+// 2. مدیریت درخواست‌ها (اضافه کردن داده به دیتابیس)
+// ---------------------------------------------------------
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // اگر فرم تماس ارسال شد
+    if (isset($_POST['submit_order'])) {
+        $stmt = $db->prepare("INSERT INTO orders (client_name, phone, description) VALUES (?, ?, ?)");
+        $stmt->execute([$_POST['name'], $_POST['phone'], $_POST['desc']]);
+        $success_msg = "سفارش شما با موفقیت ثبت شد! به زودی با شما تماس می‌گیریم.";
+    }
+    
+    // اگر در پنل ادمین خدمتی اضافه شد
+    if (isset($_POST['add_service'])) {
+        $stmt = $db->prepare("INSERT INTO services (title, description) VALUES (?, ?)");
+        $stmt->execute([$_POST['s_title'], $_POST['s_desc']]);
+    }
+}
+
+// دریافت داده‌ها از دیتابیس برای نمایش
+$services = $db->query("SELECT * FROM services")->fetchAll(PDO::FETCH_ASSOC);
+$orders = $db->query("SELECT * FROM orders ORDER BY id DESC")->fetchAll(PDO::FETCH_ASSOC);
+
+// تشخیص اینکه کاربر در صفحه ادمین است یا نه
+$is_admin = isset($_GET['admin']);
+?>
+
+<!-- --------------------------------------------------------- -->
+<!-- 3. کدهای HTML و CSS (بخش نمایش سایت) -->
+<!-- --------------------------------------------------------- -->
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ثارالله | پنل مدیریت یکپارچه</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        body { background-color: #2a1a10; color: white; font-family: sans-serif; }
+        .brown-box { background-color: #1a0f08; border: 2px solid #c49a6c; }
+        .gold-text { color: #c49a6c; }
+        .admin-btn { transition: all 0.3s; }
+        .admin-btn:hover { transform: scale(1.05); }
+    </style>
+</head>
+<body class="bg-[url('https://www.transparenttextures.com/patterns/wood-1.png')] bg-cover bg-fixed">
+
+    <?php if ($is_admin): ?>
+    <!-- ============================================== -->
+    <!-- پنل مدیریت (Admin Panel) -->
+    <!-- ============================================== -->
+    <div class="min-h-screen bg-gray-900 p-6 text-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex justify-between items-center mb-8 border-b border-gray-700 pb-4">
+                <h1 class="text-3xl font-bold gold-text"><i class="ri-admin-line"></i> پنل مدیریت ثارالله</h1>
+                <a href="?" class="bg-gray-700 px-4 py-2 rounded hover:bg-gray-600"><i class="ri-arrow-right-line"></i> بازگشت به سایت</a>
+            </div>
+
+            <!-- فرم افزودن خدمات جدید -->
+            <div class="bg-gray-800 p-6 rounded-xl shadow-xl mb-10">
+                <h2 class="text-xl font-bold mb-4 gold-text">افزودن خدمت جدید</h2>
+                <form method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="text" name="s_title" placeholder="عنوان خدمت (مثلا: طراحی بنر)" class="p-2 rounded bg-gray-700 border-gray-600 text-white w-full" required>
+                    <input type="text" name="s_desc" placeholder="توضیحات کوتاه" class="p-2 rounded bg-gray-700 border-gray-600 text-white w-full" required>
+                    <button type="submit" name="add_service" class="md:col-span-2 bg-green-600 hover:bg-green-500 px-4 py-2 rounded font-bold admin-btn">ثبت خدمت</button>
+                </form>
+            </div>
+
+            <!-- جدول لیست سفارشات -->
+            <div class="bg-gray-800 rounded-xl shadow-xl overflow-hidden">
+                <div class="p-4 border-b border-gray-700 flex justify-between items-center">
+                    <h2 class="text-xl font-bold gold-text"><i class="ri-shopping-bag-3-line"></i> لیست سفارشات دریافتی</h2>
+                </div>
+                <table class="w-full text-right text-sm">
+                    <thead class="bg-gray-900 text-gray-400">
+                        <tr>
+                            <th class="p-4">نام</th>
+                            <th class="p-4">تلفن</th>
+                            <th class="p-4">توضیحات</th>
+                            <th class="p-4">وضعیت</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if(count($orders) > 0): ?>
+                            <?php foreach($orders as $order): ?>
+                            <tr class="border-b border-gray-700 hover:bg-gray-700/50">
+                                <td class="p-4 font-bold"><?= htmlspecialchars($order['client_name']) ?></td>
+                                <td class="p-4 text-blue-300"><?= htmlspecialchars($order['phone']) ?></td>
+                                <td class="p-4 text-gray-300 max-w-[200px] truncate"><?= htmlspecialchars($order['description']) ?></td>
+                                <td class="p-4">
+                                    <span class="bg-yellow-600/30 text-yellow-300 px-2 py-1 rounded text-xs border border-yellow-600">
+                                        <?= ($order['status'] == 'pending') ? 'در انتظار بررسی' : 'تکمیل شده' ?>
+                                    </span>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr><td colspan="4" class="p-4 text-center text-gray-500">هیچ سفارشی ثبت نشده است.</td></tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <?php else: ?>
+    <!-- ============================================== -->
+    <!-- سایت اصلی (Front-End) -->
+    <!-- ============================================== -->
+    <div class="container mx-auto px-4 py-10 relative">
+        
+        <!-- دکمه ورود به ادمین (فقط برای شما) -->
+        <a href="?admin=1" class="fixed top-4 left-4 bg-red-800/50 hover:bg-red-600 px-4 py-2 rounded-full text-xs border border-red-500 z-50">
+            <i class="ri-lock-line"></i> ورود به پنل
+        </a>
+
+        <!-- نمایش پیام موفقیت -->
+        <?php if(isset($success_msg)): ?>
+            <div class="bg-green-600/80 border border-green-500 text-center p-3 rounded mb-6"><?= $success_msg ?></div>
+        <?php endif; ?>
+
+        <!-- هدر -->
+        <header class="text-center">
+            <div class="brown-box inline-block p-6 rounded-2xl shadow-2xl bg-opacity-80 backdrop-blur-sm">
+                <h1 class="text-4xl md:text-5xl font-bold gold-text">ثارالله | تولیدات رسانه‌ای مذهبی</h1>
+            </div>
+            <h2 class="text-2xl mt-6 gold-text opacity-90 italic font-light">روایت حقیقت با هنر رسانه</h2>
+            <div class="mt-4 flex justify-center">
+                <span class="bg-[#c49a6c] text-[#1a0f08] px-6 py-2 font-bold rounded-full text-sm shadow-lg">تولید تخصصی آثار رسانه‌ای مذهبی و انقلابی</span>
+            </div>
+        </header>
+
+        <!-- بخش خدمات -->
+        <section class="mt-16 max-w-5xl mx-auto">
+            <h3 class="text-3xl text-center mb-10 border-2 border-[#c49a6c] w-fit mx-auto px-12 py-3 rounded-xl brown-box">خدمات ما</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- اگر خدمتی در دیتابیس موجود باشد نمایش میدهد -->
+                <?php if(count($services) > 0): ?>
+                    <?php foreach($services as $service): ?>
+                    <div class="bg-[#2f1f14] border-r-4 border-[#c49a6c] p-6 rounded-r-lg shadow-xl hover:translate-y-[-5px] transition duration-300">
+                        <h4 class="text-xl font-bold text-white mb-2"><?= htmlspecialchars($service['title']) ?></h4>
+                        <p class="text-gray-300 text-sm leading-relaxed"><?= htmlspecialchars($service['description']) ?></p>
+                    </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <!-- نمایش نمونه اولیه اگر دیتابیس خالی است -->
+                    <div class="bg-[#2f1f14] border-r-4 border-[#c49a6c] p-6 rounded-r-lg shadow-xl"> 
+                        <h4 class="text-xl font-bold text-white mb-2">طراحی پوستر مذهبی</h4>
+                        <p class="text-gray-300 text-sm">طراحی حرفه‌ای پوستر برای مراسمات، همایش‌ها و مناسبت‌های مذهبی با گرافیک بالا.</p>
+                    </div>
+                    <div class="bg-[#2f1f14] border-r-4 border-[#c49a6c] p-6 rounded-r-lg shadow-xl">
+                        <h4 class="text-xl font-bold text-white mb-2">تایپوگرافی حرفه‌ای</h4>
+                        <p class="text-gray-300 text-sm">پیاده‌سازی تایپوگرافی های ناب فارسی و عربی با الهام از هنر خوشنویسی اسلامی.</p>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </section>
+
+        <!-- بخش فرم تماس و سفارش -->
+        <section class="mt-20 mb-10 max-w-4xl mx-auto bg-[#1a0f08] bg-opacity-80 p-8 rounded-2xl border border-[#c49a6c] shadow-2xl">
+            <h4 class="text-xl font-bold text-center gold-text mb-4">برای سفارش طراحی‌های حرفه‌ای مذهبی، فرم زیر را پر کنید</h4>
+            
+            <form method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                <input type="text" name="name" placeholder="نام و نام خانوادگی" required class="bg-[#2a1a10] border border-gray-600 p-3 rounded text-white focus:border-[#c49a6c] outline-none w-full">
+                <input type="tel" name="phone" placeholder="شماره تماس (مثلاً: ۰۹۱۲...)" required class="bg-[#2a1a10] border border-gray-600 p-3 rounded text-white focus:border-[#c49a6c] outline-none w-full">
+                <textarea name="desc" placeholder="توضیحات سفارش خود را بنویسید..." required class="md:col-span-2 bg-[#2a1a10] border border-gray-600 p-3 rounded text-white focus:border-[#c49a6c] outline-none w-full h-24 resize-none"></textarea>
+                <button type="submit" name="submit_order" class="md:col-span-2 bg-[#c49a6c] hover:bg-[#b08858] text-[#1a0f08] font-bold py-3 rounded text-lg transition duration-300 shadow-lg">ثبت سفارش</button>
+            </form>
+        </section>
+
+        <!-- فوتر -->
+        <footer class="text-center border-t border-[#c49a6c]/40 pt-8 pb-4 opacity-80">
+            <div class="bg-[#c49a6c] text-[#1a0f08] px-8 py-3 rounded-full text-xl font-bold inline-block shadow-xl mb-4">
+                <i class="ri-instagram-line mr-2"></i> @Sarallah.Graphic
+            </div>
+            <p class="text-gray-400 text-sm mt-4">کلیه حقوق محفوظ است | طراحی شده با هنر رسانه</p>
+        </footer>
+
+    </div>
+    <?php endif; ?>
+
+</body>
+</html>
