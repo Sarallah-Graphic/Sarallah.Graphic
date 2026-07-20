@@ -4,968 +4,578 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ثارالله | تولیدات رسانه‌ای مذهبی</title>
-
-    <!-- ============================================ -->
-    <!-- بخش CDN: Tailwind CSS و RemixIcon و فونت فارسی -->
-    <!-- ============================================ -->
+    
+    <!-- فونت وزیر -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'vazir': ['Vazirmatn', 'sans-serif'],
-                    },
-                    colors: {
-                        'wood-dark': '#1a0f0a',
-                        'wood-mid': '#2d1b14',
-                        'wood-light': '#3d2b1f',
-                        'gold': '#c9a84c',
-                        'gold-light': '#e8c76a',
-                        'gold-dark': '#a08535',
-                        'cream': '#f5e6c8',
-                        'cream-dark': '#d4c5a0',
-                    }
-                }
-            }
-        }
-    </script>
-
+    
     <style>
-        /* ============================================ */
-        /* بخش CSS: استایل‌های سفارشی و بافت چوبی */
-        /* ============================================ */
+        @import url('https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css');
+        
         body {
-            font-family: 'Vazirmatn', sans-serif;
-            background-color: #1a0f0a;
-            color: #f5e6c8;
+            font-family: 'Vazir', sans-serif;
         }
-
-        .wood-texture {
-            background-image: 
-                linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px),
-                linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px),
-                linear-gradient(180deg, #1a0f0a 0%, #2d1b14 50%, #1a0f0a 100%);
-            background-size: 20px 20px, 20px 20px, 100% 100%;
+        
+        .hero-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e2937 100%);
         }
-
-        .wood-texture-light {
-            background-image: 
-                linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px),
-                linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
-                linear-gradient(180deg, #2d1b14 0%, #3d2b1f 50%, #2d1b14 100%);
-            background-size: 20px 20px, 20px 20px, 100% 100%;
+        
+        .gold-text {
+            color: #facc15;
         }
-
-        .gold-border {
-            border: 2px solid #c9a84c;
-            box-shadow: 0 0 15px rgba(201, 168, 76, 0.3), inset 0 0 10px rgba(201, 168, 76, 0.1);
-        }
-
-        .gold-border-right {
-            border-right: 4px solid #c9a84c;
-        }
-
+        
         .card-hover {
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        
         .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(201, 168, 76, 0.2);
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
         }
-
-        .btn-gold {
-            background: linear-gradient(135deg, #c9a84c 0%, #a08535 100%);
-            color: #1a0f0a;
-            transition: all 0.3s ease;
+        
+        .nav-link {
+            position: relative;
         }
-        .btn-gold:hover {
-            background: linear-gradient(135deg, #e8c76a 0%, #c9a84c 100%);
-            transform: scale(1.05);
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            right: 0;
+            background-color: #facc15;
+            transition: all 0.3s;
         }
-
-        .modal-backdrop {
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(5px);
+        
+        .nav-link:hover:after {
+            width: 100%;
+            right: auto;
+            left: 0;
         }
-
-        .tab-active {
-            background: linear-gradient(135deg, #c9a84c 0%, #a08535 100%);
-            color: #1a0f0a;
+        
+        .modal {
+            animation: modalPop 0.4s ease-out;
         }
-
-        .tab-inactive {
-            background: #2d1b14;
-            color: #f5e6c8;
-            border: 1px solid #c9a84c;
+        
+        @keyframes modalPop {
+            from { opacity: 0; transform: scale(0.7); }
+            to { opacity: 1; transform: scale(1); }
         }
-        .tab-inactive:hover {
-            background: #3d2b1f;
+        
+        .media-grid img, .media-grid video {
+            transition: all 0.3s;
         }
-
-        .scroll-smooth {
-            scroll-behavior: smooth;
-        }
-
-        /* انیمیشن ورود */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        /* استایل اسکرول‌بار */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #1a0f0a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #c9a84c;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #e8c76a;
+        
+        .media-grid img:hover, .media-grid video:hover {
+            transform: scale(1.08);
+            filter: brightness(1.1);
         }
     </style>
 </head>
-<body class="wood-texture min-h-screen">
+<body class="bg-slate-950 text-slate-200">
 
-    <!-- ============================================ -->
-    <!-- بخش HTML: دکمه مخفی مدیریت -->
-    <!-- ============================================ -->
-    <button id="adminBtn" onclick="openAdminModal()" 
-            class="fixed top-4 left-4 z-50 text-cream/30 hover:text-gold transition-colors text-sm flex items-center gap-1">
-        <i class="ri-settings-4-line"></i>
-        <span>مدیریت</span>
-    </button>
-
-    <!-- ============================================ -->
-    <!-- بخش HTML: هدر سایت -->
-    <!-- ============================================ -->
-    <header class="relative py-16 px-4 text-center wood-texture-light border-b-2 border-gold/30">
-        <div class="max-w-4xl mx-auto">
-            <h1 class="text-5xl md:text-7xl font-bold text-gold mb-4 tracking-wide"
-                style="text-shadow: 0 0 20px rgba(201,168,76,0.4);">
-                ثارالله
-            </h1>
-            <div class="w-32 h-1 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-4"></div>
-            <p class="text-2xl md:text-3xl text-cream font-light mb-2">تولیدات رسانه‌ای مذهبی</p>
-            <p class="text-lg text-cream-dark italic">"روایت حقیقت با هنر رسانه"</p>
-        </div>
-
-        <!-- ناوبری -->
-        <nav class="mt-8 flex flex-wrap justify-center gap-4">
-            <a href="#services" class="px-6 py-2 border border-gold/50 text-cream hover:bg-gold/20 hover:border-gold transition-all rounded-lg">
-                خدمات
-            </a>
-            <a href="#portfolio" class="px-6 py-2 border border-gold/50 text-cream hover:bg-gold/20 hover:border-gold transition-all rounded-lg">
-                نمونه‌کارها
-            </a>
-            <a href="#posts" class="px-6 py-2 border border-gold/50 text-cream hover:bg-gold/20 hover:border-gold transition-all rounded-lg">
-                وبلاگ
-            </a>
-            <a href="#contact" class="px-6 py-2 border border-gold/50 text-cream hover:bg-gold/20 hover:border-gold transition-all rounded-lg">
-                تماس و سفارش
-            </a>
-        </nav>
-    </header>
-
-    <!-- ============================================ -->
-    <!-- بخش HTML: خدمات (۲ ستونه) -->
-    <!-- ============================================ -->
-    <section id="services" class="py-16 px-4">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-gold mb-3">خدمات ما</h2>
-                <div class="w-24 h-1 bg-gold mx-auto"></div>
+    <!-- Navbar -->
+    <nav class="bg-slate-950 border-b border-slate-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-yellow-500 text-slate-950 rounded-full flex items-center justify-center text-2xl font-bold">ث</div>
+                <div>
+                    <h1 class="text-2xl font-bold text-white">ثارالله</h1>
+                    <p class="text-[10px] text-slate-400 -mt-1">تولیدات رسانه‌ای مذهبی</p>
+                </div>
             </div>
-            <div id="servicesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- خدمات به صورت داینامیک رندر می‌شوند -->
+            
+            <div class="hidden md:flex items-center gap-8 text-sm">
+                <a href="#home" class="nav-link hover:text-yellow-400">خانه</a>
+                <a href="#services" class="nav-link hover:text-yellow-400">خدمات</a>
+                <a href="#portfolio" class="nav-link hover:text-yellow-400">آثار</a>
+                <a href="#blog" class="nav-link hover:text-yellow-400">تولیدات</a>
+                <a href="#order" class="nav-link hover:text-yellow-400">سفارش</a>
+                <a href="#about" class="nav-link hover:text-yellow-400">درباره ما</a>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <button onclick="showAdminModal()" 
+                        class="px-5 py-2 bg-slate-800 hover:bg-slate-700 rounded-xl text-sm flex items-center gap-2">
+                    <span>پنل مدیریت</span>
+                </button>
+                <button onclick="toggleMobileMenu()" 
+                        class="md:hidden w-10 h-10 flex items-center justify-center text-2xl">☰</button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-slate-900 border-t border-slate-700 px-6 py-6">
+            <div class="flex flex-col gap-6 text-lg">
+                <a href="#home" class="hover:text-yellow-400">خانه</a>
+                <a href="#services" class="hover:text-yellow-400">خدمات</a>
+                <a href="#portfolio" class="hover:text-yellow-400">آثار</a>
+                <a href="#blog" class="hover:text-yellow-400">تولیدات</a>
+                <a href="#order" class="hover:text-yellow-400">ثبت سفارش</a>
+                <a href="#about" class="hover:text-yellow-400">درباره ما</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg min-h-screen flex items-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(at_center,#334155_0%,transparent_70%)]"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-5xl md:text-6xl font-bold leading-tight text-white">
+                        تولید محتوای <span class="gold-text">مذهبی</span> حرفه‌ای
+                    </h2>
+                    <p class="mt-6 text-xl text-slate-300 leading-relaxed">
+                        ساخت مداحی، کلیپ‌های عاشورایی، پوستر، موشن‌گرافیک و محتوای ویژه هیئت‌ها و کانال‌های مذهبی با بالاترین کیفیت
+                    </p>
+                    <div class="mt-10 flex flex-wrap gap-4">
+                        <button onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})" 
+                                class="px-10 py-4 bg-yellow-500 hover:bg-yellow-400 text-slate-950 font-bold rounded-2xl text-lg transition">
+                            ثبت سفارش فوری
+                        </button>
+                        <button onclick="document.getElementById('portfolio').scrollIntoView({behavior:'smooth'})" 
+                                class="px-10 py-4 border-2 border-yellow-500 hover:bg-white/10 font-bold rounded-2xl text-lg transition">
+                            مشاهده آثار
+                        </button>
+                    </div>
+                    <div class="mt-12 flex items-center gap-8 text-sm">
+                        <div>✅ بیش از ۴۲۰ پروژه موفق</div>
+                        <div>✅ همکاری با ۸۰ هیئت بزرگ</div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <img src="https://picsum.photos/id/1015/800/600" 
+                         class="rounded-3xl shadow-2xl border border-yellow-500/20" alt="ثارالله">
+                    <div class="absolute -bottom-6 -left-6 bg-slate-900 p-6 rounded-2xl border border-yellow-500/30">
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                            <span class="text-sm">در حال پخش زنده مداحی</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <div class="text-yellow-400 text-4xl">↓</div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <div class="bg-slate-900 py-8">
+        <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 px-6">
+            <div class="text-center">
+                <div class="text-5xl font-bold text-yellow-400" id="stat1">۰</div>
+                <div class="text-slate-400 mt-2">پروژه تکمیل شده</div>
+            </div>
+            <div class="text-center">
+                <div class="text-5xl font-bold text-yellow-400" id="stat2">۰</div>
+                <div class="text-slate-400 mt-2">مداحی منتشر شده</div>
+            </div>
+            <div class="text-center">
+                <div class="text-5xl font-bold text-yellow-400" id="stat3">۰</div>
+                <div class="text-slate-400 mt-2">هیئت همکار</div>
+            </div>
+            <div class="text-center">
+                <div class="text-5xl font-bold text-yellow-400" id="stat4">۰</div>
+                <div class="text-slate-400 mt-2">مشتری راضی</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services -->
+    <section id="services" class="py-20 bg-slate-950">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4">خدمات ما</h2>
+            <p class="text-center text-slate-400 mb-12 max-w-2xl mx-auto">از ایده‌پردازی تا تولید نهایی، تمام نیازهای رسانه‌ای هیئت‌ها و کانال‌های مذهبی را پوشش می‌دهیم</p>
+            
+            <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div class="bg-slate-900 p-8 rounded-3xl card-hover border border-slate-700">
+                    <div class="text-4xl mb-4">🎬</div>
+                    <h3 class="text-xl font-bold mb-3">تولید کلیپ مذهبی</h3>
+                    <p class="text-slate-400 text-sm">کلیپ‌های عاشورایی، سخنرانی، نماهنگ با کیفیت 4K</p>
+                </div>
+                <div class="bg-slate-900 p-8 rounded-3xl card-hover border border-slate-700">
+                    <div class="text-4xl mb-4">🎤</div>
+                    <h3 class="text-xl font-bold mb-3">تدوین و میکس مداحی</h3>
+                    <p class="text-slate-400 text-sm">میکس حرفه‌ای، اضافه کردن افکت، خروجی چند فرمت</p>
+                </div>
+                <div class="bg-slate-900 p-8 rounded-3xl card-hover border border-slate-700">
+                    <div class="text-4xl mb-4">🖼️</div>
+                    <h3 class="text-xl font-bold mb-3">طراحی پوستر و بنر</h3>
+                    <p class="text-slate-400 text-sm">پوسترهای هیئت، بنر اینستاگرام، استوری</p>
+                </div>
+                <div class="bg-slate-900 p-8 rounded-3xl card-hover border border-slate-700">
+                    <div class="text-4xl mb-4">📱</div>
+                    <h3 class="text-xl font-bold mb-3">تولید محتوا شبکه‌های اجتماعی</h3>
+                    <p class="text-slate-400 text-sm">پست، ریلز، استوری، کپشن‌نویسی مذهبی</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- ============================================ -->
-    <!-- بخش HTML: نمونه‌کارها (۳ ستونه) -->
-    <!-- ============================================ -->
-    <section id="portfolio" class="py-16 px-4 wood-texture-light">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-gold mb-3">نمونه‌کارها</h2>
-                <div class="w-24 h-1 bg-gold mx-auto"></div>
+    <!-- Portfolio -->
+    <section id="portfolio" class="py-20 bg-slate-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-6">آثار ما</h2>
+            
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-3 mb-10" id="filter-buttons">
+                <button onclick="filterCategory('all')" class="active-filter px-6 py-2 rounded-full bg-yellow-500 text-slate-950 font-medium">همه</button>
+                <button onclick="filterCategory('video')" class="px-6 py-2 rounded-full hover:bg-slate-700">کلیپ و ویدیو</button>
+                <button onclick="filterCategory('audio')" class="px-6 py-2 rounded-full hover:bg-slate-700">مداحی و صوت</button>
+                <button onclick="filterCategory('image')" class="px-6 py-2 rounded-full hover:bg-slate-700">پوستر و تصویر</button>
             </div>
-            <div id="portfolioGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- نمونه‌کارها به صورت داینامیک رندر می‌شوند -->
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================ -->
-    <!-- بخش HTML: پست‌ها/وبلاگ (۲-۳ ستونه) -->
-    <!-- ============================================ -->
-    <section id="posts" class="py-16 px-4">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-gold mb-3">وبلاگ</h2>
-                <div class="w-24 h-1 bg-gold mx-auto"></div>
-            </div>
-            <div id="postsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- پست‌ها به صورت داینامیک رندر می‌شوند -->
+            
+            <div class="grid md:grid-cols-3 gap-8 media-grid" id="portfolio-grid">
+                <!-- JS will populate these -->
             </div>
         </div>
     </section>
 
-    <!-- ============================================ -->
-    <!-- بخش HTML: فرم تماس و سفارش -->
-    <!-- ============================================ -->
-    <section id="contact" class="py-16 px-4 wood-texture-light">
-        <div class="max-w-2xl mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-gold mb-3">تماس و سفارش</h2>
-                <div class="w-24 h-1 bg-gold mx-auto"></div>
-                <p class="text-cream-dark mt-4">برای ثبت سفارش فرم زیر را پر کنید</p>
-            </div>
-
-            <form id="orderForm" onsubmit="submitOrder(event)" 
-                  class="gold-border bg-wood-mid/80 p-8 rounded-xl">
-                <div class="mb-6">
-                    <label class="block text-cream mb-2 text-right">نام و نام خانوادگی</label>
-                    <input type="text" id="orderName" required
-                           class="w-full bg-wood-dark border border-gold/30 text-cream px-4 py-3 rounded-lg focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-all"
-                           placeholder="نام خود را وارد کنید">
+    <!-- Order Form -->
+    <section id="order" class="py-20 bg-slate-950">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4">ثبت سفارش تولید رسانه‌ای</h2>
+            <p class="text-center text-slate-400 mb-12">فرم زیر را تکمیل کنید تا در سریع‌ترین زمان ممکن با شما تماس بگیریم</p>
+            
+            <form id="orderForm" onsubmit="submitOrder(event)" class="bg-slate-900 p-10 rounded-3xl">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <input type="text" id="name" placeholder="نام و نام خانوادگی" class="bg-slate-800 p-5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                    <input type="tel" id="phone" placeholder="شماره تماس" class="bg-slate-800 p-5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-yellow-500">
                 </div>
-
-                <div class="mb-6">
-                    <label class="block text-cream mb-2 text-right">شماره تماس</label>
-                    <input type="tel" id="orderPhone" required
-                           class="w-full bg-wood-dark border border-gold/30 text-cream px-4 py-3 rounded-lg focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-all"
-                           placeholder="مثلاً: 0912XXXXXXX">
+                
+                <select id="mediaType" class="w-full mt-6 bg-slate-800 p-5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                    <option value="">نوع رسانه مورد نظر</option>
+                    <option value="clip">کلیپ مذهبی</option>
+                    <option value="madahi">مداحی و نماهنگ</option>
+                    <option value="poster">پوستر و بنر</option>
+                    <option value="reel">ریلز اینستاگرام</option>
+                    <option value="full">پروژه کامل (چند رسانه‌ای)</option>
+                </select>
+                
+                <textarea id="description" rows="5" placeholder="توضیحات کامل سفارش (موضوع، سبک، مدت زمان، deadline و ...)" 
+                          class="w-full mt-6 bg-slate-800 p-5 rounded-3xl focus:outline-none focus:ring-2 focus:ring-yellow-500"></textarea>
+                
+                <div class="mt-6">
+                    <label class="block text-sm mb-3 text-slate-400">آپلود نمونه یا فایل مرجع (اختیاری)</label>
+                    <input type="file" id="uploadFile" accept="image/*,video/*,audio/*" 
+                           class="block w-full text-sm text-slate-400 file:mr-4 file:py-3 file:px-8 file:rounded-2xl file:border-0 file:bg-yellow-500 file:text-slate-950">
                 </div>
-
-                <div class="mb-6">
-                    <label class="block text-cream mb-2 text-right">توضیحات سفارش</label>
-                    <textarea id="orderDesc" rows="4" required
-                              class="w-full bg-wood-dark border border-gold/30 text-cream px-4 py-3 rounded-lg focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-all resize-none"
-                              placeholder="توضیحات سفارش خود را بنویسید..."></textarea>
-                </div>
-
+                
                 <button type="submit" 
-                        class="w-full btn-gold font-bold py-3 px-6 rounded-lg text-lg">
-                    <i class="ri-send-plane-line ml-2"></i>
-                    ارسال سفارش
+                        class="mt-10 w-full py-6 bg-gradient-to-r from-yellow-500 to-amber-500 text-slate-950 font-bold text-xl rounded-3xl hover:scale-105 transition">
+                    ارسال سفارش و درخواست مشاوره
                 </button>
             </form>
         </div>
     </section>
 
-    <!-- ============================================ -->
-    <!-- بخش HTML: فوتر -->
-    <!-- ============================================ -->
-    <footer class="py-8 px-4 border-t border-gold/20 text-center">
-        <div class="max-w-4xl mx-auto">
-            <a href="https://instagram.com" target="_blank" 
-               class="inline-flex items-center gap-2 text-cream hover:text-gold transition-colors text-lg mb-4">
-                <i class="ri-instagram-line text-2xl"></i>
-                <span>@tharollah_media</span>
-            </a>
-            <p class="text-cream-dark text-sm mt-4">
-                تمامی حقوق محفوظ است | ثارالله تولیدات رسانه‌ای مذهبی
-            </p>
+    <!-- Blog / Latest Posts -->
+    <section id="blog" class="py-20 bg-slate-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center mb-10">
+                <h2 class="text-4xl font-bold">آخرین تولیدات</h2>
+                <button onclick="showAdminModal()" 
+                        class="text-yellow-400 hover:text-yellow-300 flex items-center gap-2">
+                    <span>افزودن پست جدید</span>
+                </button>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8" id="posts-container">
+                <!-- Dynamic posts added by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-slate-950">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12">نظرات همکاران ما</h2>
+            <div id="testimonial-slider" class="relative">
+                <!-- Carousel content added by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-16">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="flex justify-center gap-3 mb-6">
+                <div class="w-12 h-12 bg-yellow-500 text-slate-950 rounded-2xl flex items-center justify-center text-4xl">ث</div>
+            </div>
+            <p class="text-2xl font-bold mb-2">ثارالله</p>
+            <p class="text-slate-500">تولید محتوای فاخر مذهبی • خدمت به اهل بیت (ع)</p>
+            <p class="mt-12 text-slate-600 text-sm">© ۱۴۰۵ تمامی حقوق محفوظ است</p>
         </div>
     </footer>
 
-    <!-- ============================================ -->
-    <!-- بخش HTML: مودال ورود به پنل مدیریت -->
-    <!-- ============================================ -->
-    <div id="loginModal" class="fixed inset-0 modal-backdrop z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-wood-mid gold-border rounded-xl p-8 max-w-md w-full relative">
-            <button onclick="closeLoginModal()" class="absolute top-4 left-4 text-cream/50 hover:text-gold">
-                <i class="ri-close-line text-2xl"></i>
-            </button>
-            <h3 class="text-2xl font-bold text-gold text-center mb-6">ورود به پنل مدیریت</h3>
-            <form onsubmit="checkPassword(event)">
-                <div class="mb-4">
-                    <label class="block text-cream mb-2">رمز عبور</label>
-                    <input type="password" id="adminPassword" required
-                           class="w-full bg-wood-dark border border-gold/30 text-cream px-4 py-3 rounded-lg focus:border-gold focus:outline-none"
-                           placeholder="رمز عبور را وارد کنید">
-                </div>
-                <button type="submit" class="w-full btn-gold font-bold py-3 rounded-lg">
-                    ورود
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- ============================================ -->
-    <!-- بخش HTML: مودال پنل مدیریت (تب‌بندی شده) -->
-    <!-- ============================================ -->
-    <div id="adminModal" class="fixed inset-0 modal-backdrop z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-wood-mid gold-border rounded-xl p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto relative">
-            <button onclick="closeAdminModal()" class="absolute top-4 left-4 text-cream/50 hover:text-gold">
-                <i class="ri-close-line text-2xl"></i>
-            </button>
-
-            <h3 class="text-2xl font-bold text-gold text-center mb-6">پنل مدیریت</h3>
-
-            <!-- تب‌ها -->
-            <div class="flex flex-wrap gap-2 mb-6 border-b border-gold/20 pb-4">
-                <button onclick="switchTab('servicesTab')" id="tab-services" 
-                        class="tab-active px-4 py-2 rounded-lg font-bold transition-all">
-                    <i class="ri-briefcase-line ml-1"></i> خدمات
-                </button>
-                <button onclick="switchTab('portfolioTab')" id="tab-portfolio" 
-                        class="tab-inactive px-4 py-2 rounded-lg font-bold transition-all">
-                    <i class="ri-image-line ml-1"></i> نمونه‌کارها
-                </button>
-                <button onclick="switchTab('postsTab')" id="tab-posts" 
-                        class="tab-inactive px-4 py-2 rounded-lg font-bold transition-all">
-                    <i class="ri-article-line ml-1"></i> پست‌ها
-                </button>
-                <button onclick="switchTab('ordersTab')" id="tab-orders" 
-                        class="tab-inactive px-4 py-2 rounded-lg font-bold transition-all">
-                    <i class="ri-shopping-cart-line ml-1"></i> سفارشات
-                </button>
+    <!-- Media Preview Modal -->
+    <div id="mediaModal" class="hidden fixed inset-0 bg-black/90 z-[100] flex items-center justify-center">
+        <div class="modal bg-slate-900 rounded-3xl max-w-4xl w-full mx-4 overflow-hidden">
+            <div class="flex justify-between items-center p-6 border-b border-slate-700">
+                <h3 id="modalTitle" class="text-xl font-bold">پیش‌نمایش رسانه</h3>
+                <button onclick="closeModal()" class="text-4xl leading-none text-slate-400 hover:text-white">×</button>
             </div>
-
-            <!-- تب ۱: خدمات -->
-            <div id="servicesTab" class="tab-content">
-                <div class="bg-wood-dark/50 p-4 rounded-lg mb-6">
-                    <h4 class="text-gold font-bold mb-4">افزودن خدمت جدید</h4>
-                    <form onsubmit="addService(event)" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <input type="text" id="newServiceTitle" required
-                               class="bg-wood-dark border border-gold/30 text-cream px-4 py-2 rounded-lg focus:border-gold focus:outline-none"
-                               placeholder="عنوان خدمت">
-                        <input type="text" id="newServiceDesc" required
-                               class="bg-wood-dark border border-gold/30 text-cream px-4 py-2 rounded-lg focus:border-gold focus:outline-none"
-                               placeholder="توضیحات خدمت">
-                        <button type="submit" class="btn-gold px-6 py-2 rounded-lg font-bold md:col-span-2">
-                            <i class="ri-add-line ml-1"></i> افزودن خدمت
-                        </button>
-                    </form>
-                </div>
-                <div id="adminServicesList" class="space-y-2">
-                    <!-- لیست خدمات در پنل مدیریت -->
-                </div>
-            </div>
-
-            <!-- تب ۲: نمونه‌کارها -->
-            <div id="portfolioTab" class="tab-content hidden">
-                <div class="bg-wood-dark/50 p-4 rounded-lg mb-6">
-                    <h4 class="text-gold font-bold mb-4">افزودن نمونه‌کار جدید</h4>
-                    <form onsubmit="addPortfolio(event)" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <input type="text" id="newPortfolioTitle" required
-                               class="bg-wood-dark border border-gold/30 text-cream px-4 py-2 rounded-lg focus:border-gold focus:outline-none"
-                               placeholder="عنوان نمونه‌کار">
-                        <input type="text" id="newPortfolioCategory" required
-                               class="bg-wood-dark border border-gold/30 text-cream px-4 py-2 rounded-lg focus:border-gold focus:outline-none"
-                               placeholder="دسته‌بندی">
-                        <input type="text" id="newPortfolioImage" required
-                               class="bg-wood-dark border border-gold/30 text-cream px-4 py-2 rounded-lg focus:border-gold focus:outline-none"
-                               placeholder="لینک تصویر">
-                        <button type="submit" class="btn-gold px-6 py-2 rounded-lg font-bold md:col-span-3">
-                            <i class="ri-add-line ml-1"></i> افزودن نمونه‌کار
-                        </button>
-                    </form>
-                </div>
-                <div id="adminPortfolioList" class="space-y-2">
-                    <!-- لیست نمونه‌کارها در پنل مدیریت -->
-                </div>
-            </div>
-
-            <!-- تب ۳: پست‌ها -->
-            <div id="postsTab" class="tab-content hidden">
-                <div class="bg-wood-dark/50 p-4 rounded-lg mb-6">
-                    <h4 class="text-gold font-bold mb-4">افزودن پست جدید</h4>
-                    <form onsubmit="addPost(event)" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <input type="text" id="newPostTitle" required
-                               class="bg-wood-dark border border-gold/30 text-cream px-4 py-2 rounded-lg focus:border-gold focus:outline-none"
-                               placeholder="عنوان پست">
-                        <input type="text" id="newPostDate" required
-                               class="bg-wood-dark border border-gold/30 text-cream px-4 py-2 rounded-lg focus:border-gold focus:outline-none"
-                               placeholder="تاریخ انتشار (مثلاً: ۱۴۰۳/۰۵/۱۲)">
-                        <textarea id="newPostSummary" required rows="1"
-                                  class="bg-wood-dark border border-gold/30 text-cream px-4 py-2 rounded-lg focus:border-gold focus:outline-none resize-none"
-                                  placeholder="خلاصه متن"></textarea>
-                        <button type="submit" class="btn-gold px-6 py-2 rounded-lg font-bold md:col-span-3">
-                            <i class="ri-add-line ml-1"></i> افزودن پست
-                        </button>
-                    </form>
-                </div>
-                <div id="adminPostsList" class="space-y-2">
-                    <!-- لیست پست‌ها در پنل مدیریت -->
-                </div>
-            </div>
-
-            <!-- تب ۴: سفارشات -->
-            <div id="ordersTab" class="tab-content hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-right">
-                        <thead>
-                            <tr class="border-b border-gold/30">
-                                <th class="py-3 px-4 text-gold">#</th>
-                                <th class="py-3 px-4 text-gold">نام</th>
-                                <th class="py-3 px-4 text-gold">تلفن</th>
-                                <th class="py-3 px-4 text-gold">توضیحات</th>
-                                <th class="py-3 px-4 text-gold">تاریخ</th>
-                                <th class="py-3 px-4 text-gold">عملیات</th>
-                            </tr>
-                        </thead>
-                        <tbody id="adminOrdersList">
-                            <!-- لیست سفارشات در پنل مدیریت -->
-                        </tbody>
-                    </table>
-                </div>
+            <div class="p-6" id="modalContent">
+                <!-- Dynamic content -->
             </div>
         </div>
     </div>
 
-    <!-- ============================================ -->
-    <!-- بخش JavaScript: متغیرها و تنظیمات اولیه -->
-    <!-- ============================================ -->
+    <!-- Admin Modal (Simulated Panel) -->
+    <div id="adminModal" class="hidden fixed inset-0 bg-black/90 z-[110] flex items-center justify-center">
+        <div class="modal bg-slate-900 rounded-3xl w-full max-w-2xl mx-4 p-8">
+            <h2 class="text-3xl font-bold mb-8 text-yellow-400">پنل مدیریت • ثارالله</h2>
+            
+            <div class="mb-8">
+                <h3 class="text-lg mb-4">افزودن تولید جدید</h3>
+                <input id="newPostTitle" placeholder="عنوان تولید" class="w-full p-4 bg-slate-800 rounded-2xl mb-4">
+                <textarea id="newPostContent" rows="4" placeholder="توضیحات" class="w-full p-4 bg-slate-800 rounded-3xl mb-4"></textarea>
+                <select id="newPostType" class="w-full p-4 bg-slate-800 rounded-2xl mb-6">
+                    <option value="video">ویدیو / کلیپ</option>
+                    <option value="audio">مداحی / صوت</option>
+                    <option value="image">پوستر / تصویر</option>
+                </select>
+                <button onclick="addNewPost()" 
+                        class="w-full py-5 bg-yellow-500 text-slate-950 font-bold rounded-2xl">ثبت تولید جدید</button>
+            </div>
+            
+            <button onclick="closeAdminModal()" 
+                    class="w-full py-4 text-slate-400 border border-slate-700 rounded-2xl">بستن پنل</button>
+        </div>
+    </div>
+
     <script>
-        // ============================================
-        // متغیرهای اصلی و لینک Formspree
-        // ============================================
-        const FORMSPREE_URL = 'https://formspree.io/f/YOUR_FORM_ID';
-        const ADMIN_PASSWORD = '1234';
+        // Tailwind Script
+        function initTailwind() {
+            // Already initialized via CDN
+        }
 
-        // ============================================
-        // کلیدهای localStorage
-        // ============================================
-        const STORAGE_KEYS = {
-            services: 'tharollah_services',
-            portfolio: 'tharollah_portfolio',
-            posts: 'tharollah_posts',
-            orders: 'tharollah_orders'
-        };
-
-        // ============================================
-        // داده‌های پیش‌فرض
-        // ============================================
-        const defaultServices = [
-            { id: 1, title: 'طراحی پوستر مذهبی', desc: 'طراحی پوسترهای تبلیغاتی و اطلاع‌رسانی برای مراسم مذهبی و مناسبت‌ها' },
-            { id: 2, title: 'تدوین ویدیو', desc: 'تدوین حرفه‌ای ویدیوهای مراسم، سخنرانی‌ها و محتوای مذهبی' },
-            { id: 3, title: 'طراحی بنر و استوری', desc: 'طراحی بنرهای اینستاگرام و استوری‌های مناسبتی' },
-            { id: 4, title: 'مونتاژ صوتی', desc: 'میکس و مسترینگ صوتی مداحی، سخنرانی و پادکست مذهبی' }
+        // Sample Portfolio Data
+        let portfolioItems = [
+            {id:1, type:"video", title:"کلیپ محرم ۱۴۰۴", media:"https://picsum.photos/id/1015/600/400", desc:"نماهنگ عاشورایی"},
+            {id:2, type:"audio", title:"مداحی یا ابا عبدالله", media:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", desc:"مداحی حاج محمود کریمی"},
+            {id:3, type:"image", title:"پوستر هیئت", media:"https://picsum.photos/id/201/600/400", desc:"طراحی ویژه محرم"},
+            {id:4, type:"video", title:"ریلز ولایت", media:"https://picsum.photos/id/180/600/400", desc:"محتوای اینستاگرامی"},
         ];
 
-        const defaultPortfolio = [
-            { id: 1, title: 'پوستر محرم ۱۴۰۳', category: 'پوستر', image: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop' },
-            { id: 2, title: 'تیزر رمضان', category: 'ویدیو', image: 'https://images.unsplash.com/photo-1518173946687-a4c036bc3c95?w=400&h=300&fit=crop' },
-            { id: 3, title: 'استوری عید غدیر', category: 'اینستاگرام', image: 'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=400&h=300&fit=crop' },
-            { id: 4, title: 'کلیپ صفرا', category: 'ویدیو', image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=400&h=300&fit=crop' },
-            { id: 5, title: 'پوستر شهادت', category: 'پوستر', image: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=300&fit=crop' },
-            { id: 6, title: 'پادکست مذهبی', category: 'صوت', image: 'https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=400&h=300&fit=crop' }
+        // Sample Posts
+        let posts = [
+            {title:"تأثیر مداحی در جذب جوانان", content:"بررسی علمی و تجربی...", type:"article"},
+            {title:"بهترین نرم‌افزارهای تدوین مذهبی", content:"معرفی ۵ نرم‌افزار...", type:"article"},
         ];
 
-        const defaultPosts = [
-            { id: 1, title: 'نکاتی برای طراحی پوستر مذهبی', summary: 'در این مقاله به اصول طراحی پوسترهای مذهبی می‌پردازیم و نکات مهم را بررسی می‌کنیم.', date: '۱۴۰۳/۰۵/۱۰' },
-            { id: 2, title: 'اهمیت رسانه در تبلیغ دین', summary: 'رسانه امروزه یکی از مهم‌ترین ابزارهای تبلیغ و آموزش دین است. در این پست به بررسی این موضوع می‌پردازیم.', date: '۱۴۰۳/۰۴/۲۵' },
-            { id: 3, title: 'راهنمای تدوین ویدیوهای مذهبی', summary: 'آموزش گام به گام تدوین ویدیوهای مراسم مذهبی با نرم‌افزارهای رایگان و حرفه‌ای.', date: '۱۴۰۳/۰۳/۱۵' }
-        ];
+        // Render Portfolio
+        function renderPortfolio(filteredItems = portfolioItems) {
+            const container = document.getElementById('portfolio-grid');
+            container.innerHTML = '';
+            
+            filteredItems.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'bg-slate-800 rounded-3xl overflow-hidden card-hover cursor-pointer';
+                div.innerHTML = `
+                    <div class="relative">
+                        ${item.type === 'audio' ? 
+                            `<audio controls class="w-full"><source src="${item.media}" type="audio/mpeg"></audio>` : 
+                            `<img src="${item.media}" class="w-full h-56 object-cover">`}
+                        <div class="absolute top-3 right-3 px-4 py-1 text-xs bg-black/70 rounded-full">
+                            ${item.type === 'video' ? '🎥' : item.type === 'audio' ? '🎵' : '🖼️'}
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-bold text-lg">${item.title}</h4>
+                        <p class="text-slate-400 text-sm mt-2">${item.desc}</p>
+                        <button onclick="previewMedia('${item.title}', '${item.media}', '${item.type}')" 
+                                class="mt-6 text-yellow-400 text-sm hover:text-yellow-300">پیش‌نمایش ←</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
 
-        // ============================================
-        // توابع ذخیره‌سازی و بارگذاری از localStorage
-        // ============================================
-
-        /**
-         * بارگذاری داده‌ها از localStorage یا استفاده از پیش‌فرض
-         */
-        function loadData(key, defaultData) {
-            const stored = localStorage.getItem(key);
-            if (stored) {
-                try {
-                    return JSON.parse(stored);
-                } catch (e) {
-                    console.error('خطا در خواندن داده‌ها:', e);
-                    return defaultData;
+        // Filter
+        function filterCategory(category) {
+            document.querySelectorAll('#filter-buttons button').forEach(btn => {
+                btn.classList.remove('active-filter', 'bg-yellow-500', 'text-slate-950');
+                if ((category === 'all' && btn.textContent === 'همه') || 
+                    (category === 'video' && btn.textContent.includes('کلیپ')) ||
+                    (category === 'audio' && btn.textContent.includes('مداحی')) ||
+                    (category === 'image' && btn.textContent.includes('پوستر'))) {
+                    btn.classList.add('active-filter', 'bg-yellow-500', 'text-slate-950');
                 }
+            });
+            
+            if (category === 'all') {
+                renderPortfolio(portfolioItems);
+            } else {
+                const filtered = portfolioItems.filter(item => item.type === category);
+                renderPortfolio(filtered);
             }
-            // ذخیره داده‌های پیش‌فرض در اولین بار
-            localStorage.setItem(key, JSON.stringify(defaultData));
-            return defaultData;
         }
 
-        /**
-         * ذخیره داده‌ها در localStorage
-         */
-        function saveData(key, data) {
-            localStorage.setItem(key, JSON.stringify(data));
-        }
-
-        // بارگذاری داده‌های اولیه
-        let services = loadData(STORAGE_KEYS.services, defaultServices);
-        let portfolio = loadData(STORAGE_KEYS.portfolio, defaultPortfolio);
-        let posts = loadData(STORAGE_KEYS.posts, defaultPosts);
-        let orders = loadData(STORAGE_KEYS.orders, []);
-
-        // ============================================
-        // توابع رندر: خدمات
-        // ============================================
-
-        /**
-         * رندر کردن کارت‌های خدمات در صفحه اصلی
-         */
-        function renderServices() {
-            const grid = document.getElementById('servicesGrid');
-            grid.innerHTML = services.map(service => `
-                <div class="bg-wood-mid/80 gold-border-right p-6 rounded-lg card-hover border border-gold/10">
-                    <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-gold/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <i class="ri-briefcase-line text-gold text-xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-gold mb-2">${service.title}</h3>
-                            <p class="text-cream-dark leading-relaxed">${service.desc}</p>
-                        </div>
+        // Media Modal
+        function previewMedia(title, mediaUrl, type) {
+            const modal = document.getElementById('mediaModal');
+            const content = document.getElementById('modalContent');
+            const titleEl = document.getElementById('modalTitle');
+            
+            titleEl.textContent = title;
+            
+            if (type === 'audio') {
+                content.innerHTML = `
+                    <div class="bg-slate-800 p-8 rounded-2xl">
+                        <audio controls autoplay class="w-full">
+                            <source src="${mediaUrl}" type="audio/mpeg">
+                        </audio>
                     </div>
-                </div>
-            `).join('');
-        }
-
-        /**
-         * رندر کردن لیست خدمات در پنل مدیریت
-         */
-        function renderAdminServices() {
-            const list = document.getElementById('adminServicesList');
-            if (services.length === 0) {
-                list.innerHTML = '<p class="text-cream-dark text-center py-4">هیچ خدمتی ثبت نشده است.</p>';
-                return;
+                `;
+            } else {
+                content.innerHTML = `<img src="${mediaUrl}" class="w-full rounded-2xl">`;
             }
-            list.innerHTML = services.map(service => `
-                <div class="flex items-center justify-between bg-wood-dark/50 p-3 rounded-lg border border-gold/10">
-                    <div>
-                        <span class="text-gold font-bold">${service.title}</span>
-                        <span class="text-cream-dark text-sm mr-2">- ${service.desc}</span>
-                    </div>
-                    <button onclick="deleteService(${service.id})" 
-                            class="text-red-400 hover:text-red-300 transition-colors px-3 py-1 rounded">
-                        <i class="ri-delete-bin-line"></i> حذف
-                    </button>
-                </div>
-            `).join('');
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
         }
 
-        /**
-         * افزودن خدمت جدید
-         */
-        function addService(event) {
-            event.preventDefault();
-            const title = document.getElementById('newServiceTitle').value.trim();
-            const desc = document.getElementById('newServiceDesc').value.trim();
-
-            if (!title || !desc) return;
-
-            const newService = {
-                id: Date.now(),
-                title: title,
-                desc: desc
-            };
-
-            services.push(newService);
-            saveData(STORAGE_KEYS.services, services);
-
-            document.getElementById('newServiceTitle').value = '';
-            document.getElementById('newServiceDesc').value = '';
-
-            renderServices();
-            renderAdminServices();
+        function closeModal() {
+            const modal = document.getElementById('mediaModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
         }
 
-        /**
-         * حذف خدمت
-         */
-        function deleteService(id) {
-            if (!confirm('آیا از حذف این خدمت اطمینان دارید؟')) return;
-            services = services.filter(s => s.id !== id);
-            saveData(STORAGE_KEYS.services, services);
-            renderServices();
-            renderAdminServices();
+        // Admin Modal
+        function showAdminModal() {
+            document.getElementById('adminModal').classList.remove('hidden');
+            document.getElementById('adminModal').classList.add('flex');
+        }
+        
+        function closeAdminModal() {
+            const modal = document.getElementById('adminModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+        
+        function addNewPost() {
+            const title = document.getElementById('newPostTitle').value || "تولید جدید";
+            const content = document.getElementById('newPostContent').value || "توضیحات تولید جدید...";
+            const type = document.getElementById('newPostType').value;
+            
+            const newPost = {title, content, type};
+            posts.unshift(newPost);
+            renderPosts();
+            
+            closeAdminModal();
+            showToast("تولید جدید با موفقیت اضافه شد ✅");
         }
 
-        // ============================================
-        // توابع رندر: نمونه‌کارها
-        // ============================================
-
-        /**
-         * رندر کردن کارت‌های نمونه‌کار در صفحه اصلی
-         */
-        function renderPortfolio() {
-            const grid = document.getElementById('portfolioGrid');
-            grid.innerHTML = portfolio.map(item => `
-                <div class="bg-wood-mid/80 rounded-lg overflow-hidden card-hover border border-gold/10 group">
-                    <div class="relative overflow-hidden">
-                        <img src="${item.image}" alt="${item.title}" 
-                             class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                             onerror="this.src='https://via.placeholder.com/400x300/2d1b14/c9a84c?text=ثارالله'">
-                        <div class="absolute inset-0 bg-gradient-to-t from-wood-dark/90 to-transparent"></div>
-                        <span class="absolute top-3 right-3 bg-gold/90 text-wood-dark px-3 py-1 rounded-full text-sm font-bold">
-                            ${item.category}
-                        </span>
-                    </div>
-                    <div class="p-4">
-                        <h3 class="text-lg font-bold text-gold">${item.title}</h3>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        /**
-         * رندر کردن لیست نمونه‌کارها در پنل مدیریت
-         */
-        function renderAdminPortfolio() {
-            const list = document.getElementById('adminPortfolioList');
-            if (portfolio.length === 0) {
-                list.innerHTML = '<p class="text-cream-dark text-center py-4">هیچ نمونه‌کاری ثبت نشده است.</p>';
-                return;
-            }
-            list.innerHTML = portfolio.map(item => `
-                <div class="flex items-center justify-between bg-wood-dark/50 p-3 rounded-lg border border-gold/10">
-                    <div class="flex items-center gap-3">
-                        <img src="${item.image}" alt="" class="w-12 h-12 object-cover rounded-lg"
-                             onerror="this.src='https://via.placeholder.com/48/2d1b14/c9a84c?text=ثارالله'">
-                        <div>
-                            <span class="text-gold font-bold">${item.title}</span>
-                            <span class="text-cream-dark text-sm mr-2">(${item.category})</span>
-                        </div>
-                    </div>
-                    <button onclick="deletePortfolio(${item.id})" 
-                            class="text-red-400 hover:text-red-300 transition-colors px-3 py-1 rounded">
-                        <i class="ri-delete-bin-line"></i> حذف
-                    </button>
-                </div>
-            `).join('');
-        }
-
-        /**
-         * افزودن نمونه‌کار جدید
-         */
-        function addPortfolio(event) {
-            event.preventDefault();
-            const title = document.getElementById('newPortfolioTitle').value.trim();
-            const category = document.getElementById('newPortfolioCategory').value.trim();
-            const image = document.getElementById('newPortfolioImage').value.trim();
-
-            if (!title || !category || !image) return;
-
-            const newItem = {
-                id: Date.now(),
-                title: title,
-                category: category,
-                image: image
-            };
-
-            portfolio.push(newItem);
-            saveData(STORAGE_KEYS.portfolio, portfolio);
-
-            document.getElementById('newPortfolioTitle').value = '';
-            document.getElementById('newPortfolioCategory').value = '';
-            document.getElementById('newPortfolioImage').value = '';
-
-            renderPortfolio();
-            renderAdminPortfolio();
-        }
-
-        /**
-         * حذف نمونه‌کار
-         */
-        function deletePortfolio(id) {
-            if (!confirm('آیا از حذف این نمونه‌کار اطمینان دارید؟')) return;
-            portfolio = portfolio.filter(p => p.id !== id);
-            saveData(STORAGE_KEYS.portfolio, portfolio);
-            renderPortfolio();
-            renderAdminPortfolio();
-        }
-
-        // ============================================
-        // توابع رندر: پست‌ها
-        // ============================================
-
-        /**
-         * رندر کردن کارت‌های پست در صفحه اصلی
-         */
+        // Render Posts
         function renderPosts() {
-            const grid = document.getElementById('postsGrid');
-            grid.innerHTML = posts.map(post => `
-                <div class="bg-wood-mid/80 rounded-lg p-6 card-hover border border-gold/10">
-                    <div class="flex items-center gap-2 mb-3 text-cream-dark text-sm">
-                        <i class="ri-calendar-line"></i>
-                        <span>${post.date}</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-gold mb-3">${post.title}</h3>
-                    <p class="text-cream-dark leading-relaxed">${post.summary}</p>
-                    <div class="mt-4 pt-4 border-t border-gold/10">
-                        <button class="text-gold hover:text-gold-light transition-colors text-sm font-bold">
-                            ادامه مطلب <i class="ri-arrow-left-line mr-1"></i>
-                        </button>
-                    </div>
-                </div>
-            `).join('');
+            const container = document.getElementById('posts-container');
+            container.innerHTML = '';
+            
+            posts.forEach(post => {
+                const card = document.createElement('div');
+                card.className = "bg-slate-800 rounded-3xl p-8 card-hover";
+                card.innerHTML = `
+                    <div class="h-2 w-16 bg-yellow-500 rounded mb-6"></div>
+                    <h3 class="text-xl font-bold mb-4">${post.title}</h3>
+                    <p class="text-slate-400 line-clamp-4">${post.content}</p>
+                    <div class="mt-8 text-yellow-400 text-sm">ادامه مطلب ←</div>
+                `;
+                container.appendChild(card);
+            });
         }
 
-        /**
-         * رندر کردن لیست پست‌ها در پنل مدیریت
-         */
-        function renderAdminPosts() {
-            const list = document.getElementById('adminPostsList');
-            if (posts.length === 0) {
-                list.innerHTML = '<p class="text-cream-dark text-center py-4">هیچ پستی ثبت نشده است.</p>';
-                return;
-            }
-            list.innerHTML = posts.map(post => `
-                <div class="flex items-center justify-between bg-wood-dark/50 p-3 rounded-lg border border-gold/10">
-                    <div>
-                        <span class="text-gold font-bold">${post.title}</span>
-                        <span class="text-cream-dark text-sm mr-2">- ${post.date}</span>
-                    </div>
-                    <button onclick="deletePost(${post.id})" 
-                            class="text-red-400 hover:text-red-300 transition-colors px-3 py-1 rounded">
-                        <i class="ri-delete-bin-line"></i> حذف
-                    </button>
-                </div>
-            `).join('');
-        }
-
-        /**
-         * افزودن پست جدید
-         */
-        function addPost(event) {
-            event.preventDefault();
-            const title = document.getElementById('newPostTitle').value.trim();
-            const date = document.getElementById('newPostDate').value.trim();
-            const summary = document.getElementById('newPostSummary').value.trim();
-
-            if (!title || !date || !summary) return;
-
-            const newPost = {
-                id: Date.now(),
-                title: title,
-                date: date,
-                summary: summary
-            };
-
-            posts.push(newPost);
-            saveData(STORAGE_KEYS.posts, posts);
-
-            document.getElementById('newPostTitle').value = '';
-            document.getElementById('newPostDate').value = '';
-            document.getElementById('newPostSummary').value = '';
-
-            renderPosts();
-            renderAdminPosts();
-        }
-
-        /**
-         * حذف پست
-         */
-        function deletePost(id) {
-            if (!confirm('آیا از حذف این پست اطمینان دارید؟')) return;
-            posts = posts.filter(p => p.id !== id);
-            saveData(STORAGE_KEYS.posts, posts);
-            renderPosts();
-            renderAdminPosts();
-        }
-
-        // ============================================
-        // توابع رندر: سفارشات
-        // ============================================
-
-        /**
-         * رندر کردن لیست سفارشات در پنل مدیریت (جدول)
-         */
-        function renderAdminOrders() {
-            const tbody = document.getElementById('adminOrdersList');
-            if (orders.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" class="text-cream-dark text-center py-8">هیچ سفارشی ثبت نشده است.</td></tr>';
-                return;
-            }
-            tbody.innerHTML = orders.map((order, index) => `
-                <tr class="border-b border-gold/10 hover:bg-wood-dark/30 transition-colors">
-                    <td class="py-3 px-4 text-cream-dark">${index + 1}</td>
-                    <td class="py-3 px-4 text-cream font-bold">${order.name}</td>
-                    <td class="py-3 px-4 text-cream-dark">${order.phone}</td>
-                    <td class="py-3 px-4 text-cream-dark max-w-xs truncate">${order.description}</td>
-                    <td class="py-3 px-4 text-cream-dark">${order.date}</td>
-                    <td class="py-3 px-4">
-                        <button onclick="deleteOrder(${order.id})" 
-                                class="text-red-400 hover:text-red-300 transition-colors px-2 py-1 rounded">
-                            <i class="ri-delete-bin-line"></i> حذف
-                        </button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        /**
-         * حذف سفارش
-         */
-        function deleteOrder(id) {
-            if (!confirm('آیا از حذف این سفارش اطمینان دارید؟')) return;
-            orders = orders.filter(o => o.id !== id);
-            saveData(STORAGE_KEYS.orders, orders);
-            renderAdminOrders();
-        }
-
-        // ============================================
-        // تابع ارسال سفارش (فرم تماس)
-        // ============================================
-
-        /**
-         * ارسال سفارش به localStorage و Formspree
-         */
-        async function submitOrder(event) {
-            event.preventDefault();
-
-            const name = document.getElementById('orderName').value.trim();
-            const phone = document.getElementById('orderPhone').value.trim();
-            const description = document.getElementById('orderDesc').value.trim();
-
-            if (!name || !phone || !description) {
-                alert('لطفاً تمام فیلدها را پر کنید.');
-                return;
-            }
-
-            const newOrder = {
-                id: Date.now(),
-                name: name,
-                phone: phone,
-                description: description,
-                date: new Date().toLocaleDateString('fa-IR')
-            };
-
-            // ذخیره در localStorage
-            orders.push(newOrder);
-            saveData(STORAGE_KEYS.orders, orders);
-
-            // ارسال به Formspree
-            try {
-                const response = await fetch(FORMSPREE_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        name: name,
-                        phone: phone,
-                        description: description,
-                        date: newOrder.date
-                    })
-                });
-
-                if (response.ok) {
-                    alert('سفارش شما با موفقیت ثبت و ارسال شد!');
-                } else {
-                    alert('سفارش در سیستم ثبت شد اما ارسال ایمیل با مشکل مواجه شد. لطفاً لینک Formspree را بررسی کنید.');
-                }
-            } catch (error) {
-                console.error('خطا در ارسال به Formspree:', error);
-                alert('سفارش در سیستم ثبت شد اما ارسال ایمیل با مشکل مواجه شد. لطفاً لینک Formspree را بررسی کنید.');
-            }
-
-            // پاک کردن فرم
+        // Order Form
+        function submitOrder(e) {
+            e.preventDefault();
+            showToast("سفارش شما با موفقیت ثبت شد. به زودی با شما تماس گرفته خواهد شد.");
             document.getElementById('orderForm').reset();
         }
 
-        // ============================================
-        // توابع مدیریت مودال‌ها
-        // ============================================
-
-        /**
-         * باز کردن مودال ورود
-         */
-        function openAdminModal() {
-            document.getElementById('loginModal').classList.remove('hidden');
-            document.getElementById('adminPassword').value = '';
-            document.getElementById('adminPassword').focus();
+        // Toast Notification
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position:fixed; bottom:30px; left:50%; transform:translateX(-50%);
+                background:#111827; color:#fde047; padding:16px 28px; border-radius:9999px;
+                box-shadow:0 10px 15px -3px rgb(0 0 0);
+                z-index:9999; font-weight:500;
+            `;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.transition = 'all 0.4s';
+                toast.style.opacity = '0';
+                toast.style.transform = 'translate(-50%, 20px)';
+                setTimeout(() => toast.remove(), 400);
+            }, 4000);
         }
 
-        /**
-         * بستن مودال ورود
-         */
-        function closeLoginModal() {
-            document.getElementById('loginModal').classList.add('hidden');
-        }
-
-        /**
-         * بررسی رمز عبور
-         */
-        function checkPassword(event) {
-            event.preventDefault();
-            const password = document.getElementById('adminPassword').value;
-
-            if (password === ADMIN_PASSWORD) {
-                closeLoginModal();
-                document.getElementById('adminModal').classList.remove('hidden');
-                // رندر لیست‌های پنل مدیریت
-                renderAdminServices();
-                renderAdminPortfolio();
-                renderAdminPosts();
-                renderAdminOrders();
-            } else {
-                alert('رمز عبور اشتباه است!');
-            }
-        }
-
-        /**
-         * بستن مودال پنل مدیریت
-         */
-        function closeAdminModal() {
-            document.getElementById('adminModal').classList.add('hidden');
-        }
-
-        /**
-         * تغییر تب در پنل مدیریت
-         */
-        function switchTab(tabId) {
-            // مخفی کردن همه تب‌ها
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.add('hidden');
-            });
-
-            // نمایش تب انتخاب شده
-            document.getElementById(tabId).classList.remove('hidden');
-
-            // به‌روزرسانی استایل دکمه‌ها
-            const tabNames = ['services', 'portfolio', 'posts', 'orders'];
-            tabNames.forEach(name => {
-                const btn = document.getElementById('tab-' + name);
-                if ('tab-' + name === 'tab-' + tabId.replace('Tab', '')) {
-                    btn.classList.remove('tab-inactive');
-                    btn.classList.add('tab-active');
+        // Counter Animation
+        function animateCounter(id, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            const element = document.getElementById(id);
+            
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target.toLocaleString('fa-IR');
+                    clearInterval(timer);
                 } else {
-                    btn.classList.remove('tab-active');
-                    btn.classList.add('tab-inactive');
+                    element.textContent = Math.floor(start).toLocaleString('fa-IR');
                 }
-            });
+            }, 16);
         }
 
-        // ============================================
-        // بستن مودال با کلید Escape
-        // ============================================
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeLoginModal();
-                closeAdminModal();
-            }
-        });
+        // Mobile Menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
 
-        // ============================================
-        // مقداردهی اولیه هنگام بارگذاری صفحه
-        // ============================================
-        document.addEventListener('DOMContentLoaded', function() {
-            renderServices();
+        // Testimonial Carousel (Simple)
+        function initTestimonials() {
+            const slider = document.getElementById('testimonial-slider');
+            slider.innerHTML = `
+                <div class="bg-slate-900 p-10 rounded-3xl text-center">
+                    <p class="text-2xl italic text-slate-300">"ثارالله واقعاً سطح کارش بالاست. مداحی‌ای که برامون ساختن فوق‌العاده بود."</p>
+                    <div class="mt-10">
+                        <div class="font-bold">حاج علی رضایی</div>
+                        <div class="text-yellow-400 text-sm">مدیر هیئت عشاق الزهرا (س)</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Initialize everything
+        window.onload = function() {
             renderPortfolio();
             renderPosts();
-        });
+            initTestimonials();
+            
+            // Animate stats
+            setTimeout(() => {
+                animateCounter('stat1', 428);
+                animateCounter('stat2', 187);
+                animateCounter('stat3', 64);
+                animateCounter('stat4', 312);
+            }, 800);
+            
+            // Close modals when clicking outside
+            document.getElementById('mediaModal').addEventListener('click', function(e) {
+                if (e.target.id === 'mediaModal') closeModal();
+            });
+            
+            console.log('%c✅ سایت ثارالله با موفقیت بارگذاری شد', 'color:#facc15; font-size:14px');
+        };
     </script>
 </body>
 </html>
